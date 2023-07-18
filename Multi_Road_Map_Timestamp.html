@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Display a map on a webpage</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+<link rel="stylesheet" href="Stylesheets/bus_stylesheet.css">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.2/lib/bundle.js"></script>
+</head>
+<body>
+<div id="map"></div>
+
+<div class="overlay">
+    <button id="replay">Replay</button>
+</div>
+
+<div class="info-box">
+    <p>
+        Cancelled Buses
+    </p>
+    <div id="directions"></div>
+    </div>
+    
+<script src="Dataset/Synthetic_dataset2.js"></script>
+<script src="Functions/counterSetup.js"></script>
+<script src="Functions/interpolation.js"></script>
+<script src="Functions/pointSource.js"></script>
+<script src="Functions/initialisation.js"></script>
+<script src="Functions/mapSetup.js"></script>
+<script src="Functions/mapLoad.js"></script>
+
+</body>
+</html>
