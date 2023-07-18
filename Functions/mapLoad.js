@@ -4,9 +4,9 @@ map.on('load', () => {
     // Load bus icons first
     loadBusIcons(() => {
         // Initialization continues after loading bus icons
-        addRouteLayer();
         addOrigins();
     });   
+    addRouteLayer();
     
     //Animation happening
     let running = false;
