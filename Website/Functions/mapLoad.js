@@ -1,5 +1,5 @@
 // When map loads, do initalisation
-// When map loads, do initialization
+
 map.on('load', () => {
     // Load bus icons first
     loadBusIcons(() => {
@@ -9,11 +9,13 @@ map.on('load', () => {
     addRouteLayer();
     
     //Animation happening
+
     let running = false;
 
     //Remeber the steps in javascript start at 0. Currently we assume that each has the same length. However need to fix later on
 
     let counter = minTimestamp; //Counter stores current position in animation. We want to start at the minimum time stamp
+
     function animate() {
         running = true;
         document.getElementById('replay').disabled = true;
@@ -86,6 +88,7 @@ map.on('load', () => {
                 points_obj[i].features[0].geometry.coordinates = origin[i];
                 // Really inefficient, tried using another variable = but keeps going to same reference point
                 points_waiting_index.push(i);
+                console.log(origin[i]);
             }
             // Want to add the origin points agin
             addOrigins();
