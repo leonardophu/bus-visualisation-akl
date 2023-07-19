@@ -1,4 +1,3 @@
-// This code now having problems, for some reason map.loadImage doesn't want to work. 
 // This code loads the bus icons in our map
 
 function loadImageAsync(path) {
