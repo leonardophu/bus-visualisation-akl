@@ -14,7 +14,6 @@ const coordinates = [
     [-73.999, 40.709]]
   ];
 
-
 // Further enhance this! 
 
 const cancelled = [false, true, false];
@@ -30,6 +29,5 @@ const routes = [[[-74.001, 40.712],  // Point 1: Top-left
 
 //Problem is we can't see other point and replay isn't working! 
 const coordinateTimestamps = [[0, 5, 20], [1,3,4,5], [4,5,6,19]]
-
 
 // Synthetic dataset ////////////////////////////

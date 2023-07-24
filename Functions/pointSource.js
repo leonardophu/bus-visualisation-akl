@@ -130,7 +130,7 @@ function addOrigins() {
                 'type': 'symbol',
                 'layout': {
                     'icon-image': busicon,
-                    'icon-size': 0.07,
+                    'icon-size': 0.05,
                     'icon-rotate': ['get', 'bearing'],
                     'icon-rotation-alignment': 'map',
                     'icon-allow-overlap': true,
@@ -167,7 +167,7 @@ function getNewSource(i) {
     'type': 'symbol',
     'layout': {
         'icon-image': busicon,
-        'icon-size': 0.07,
+        'icon-size': 0.05,
         'icon-rotate': ['get', 'bearing'],
         'icon-rotation-alignment': 'map',
         'icon-allow-overlap': true,

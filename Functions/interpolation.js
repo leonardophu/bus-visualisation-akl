@@ -50,6 +50,7 @@ function interpolation(uniqueCoordinates,uniqueRoute, uniqueTimestamps, uniqueSt
       // Loop through all point in the route
       let j = 0;
       while (j < uniqueRoute.length) {
+        
         let currentCoordinates = uniqueRoute[j];
         
         // If we found the startPoint we want to keep track of it 
@@ -103,6 +104,7 @@ function interpolation(uniqueCoordinates,uniqueRoute, uniqueTimestamps, uniqueSt
             } else {
               status = secondStatus;
             }
+
           // If the difference is by 2 then we will need to consider this change
           } else if (statusDifference == 2) {
             if (interpolationIndex < 1 / 3) {
@@ -117,10 +119,10 @@ function interpolation(uniqueCoordinates,uniqueRoute, uniqueTimestamps, uniqueSt
               status = secondStatus;
             };
           };
+
           // We can continue with else if, if I need to consider cancelled buses changing from one another
 
           statusConditions.push(status);
-
         };
 
       };
