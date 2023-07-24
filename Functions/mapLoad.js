@@ -6,7 +6,7 @@ map.on('load', () => {
         // Initialization continues after loading bus icons
         addOrigins();
     });   
-    addRouteLayer();
+    // addRouteLayer();
     
     //Animation happening
 

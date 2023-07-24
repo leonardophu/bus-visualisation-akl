@@ -1,13 +1,4 @@
 // Initialisation
-colours = [
-    "#9D3F9D",
-    "#00A396",
-    "#DB2C6F",
-    "#8EB125",
-    "#946638",
-    "#7961DB"
-  ];
-  
 origin = [];
 points_index = [];
 points_waiting_index = [];
@@ -20,6 +11,7 @@ function initialise() {
   for (let i = 0; i < num_destinations; i++) {
     origin.push(coordinates[i][0]);
     currentBusStatus.push(bus_status[i][0]);
+    // Fix routes[0] 
     interpolated_data = interpolation(coordinates[i], routes[0], coordinateTimestamps[i], bus_status[i]);
     interpolationPoints.push(interpolated_data[0]);
     interpolatedBusStatus.push(interpolated_data[1]);
