@@ -1,4 +1,4 @@
-body { margin: 0; padding: 0; }
+body { margin: 0; padding: 0; font-family: "Poppins", sans-serif;}
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
 
 .overlay {
@@ -8,7 +8,7 @@ body { margin: 0; padding: 0; }
 }
  
 .overlay button {
-    font: 600 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font: 600 12px/20px "Poppins", sans-serif;
     background-color: #3386c0;
     color: #fff;
     display: inline-block;
@@ -40,3 +40,43 @@ body { margin: 0; padding: 0; }
     font: 600 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     border-radius: 3px;
 }
+
+.busInputForm {
+    width: 75vmin;
+    height: 100%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+  }
+  
+  .busInputForm input[type="text"] {
+    width: 100%;
+    padding: 15px 10px;
+    outline: none;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #ffffff;
+    font-size: 16px;
+    /* input-specific styles here, if needed */
+  }
+  
+  .busInputForm ul {
+    list-style: none;
+  }
+  
+  .busInputForm .list {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 0 0 5px 5px;
+    /* ul-specific styles here, if needed */
+  }
+  
+  .busInputForm .list-items {
+    padding: 10px 5px;
+    /* li-specific styles here, if needed */
+  }
+  
+  .busInputForm .list-items:hover {
+    background-color: #dddddd;
+    /* hovered li-specific styles here, if needed */
+  }

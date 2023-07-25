@@ -1,12 +1,12 @@
 
   let sortedNames 
-
   // Fetch the JSON file and process the data
   fetch('/Dataset/uniqueRoutes.json')
     .then(response => response.json())
     .then(data => {
       // Sort names in ascending order
       sortedNames = data.sort();
+      console.log("working");
     })
     .catch(error => console.error('Error fetching the JSON file:', error));
   
@@ -40,12 +40,6 @@
       }
     }
   });
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
-    removeElements(); // Clear the suggestion list after form submission
-  });
-
   function displayNames(value) {
     input.value = value;
     removeElements();
