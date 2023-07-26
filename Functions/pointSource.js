@@ -17,16 +17,16 @@ async function loadBusIcons() {
       console.warn("LoadedBusIcons");
       console.log("before loading images");
   
-      const onTimeBusImage = await loadImageAsync('/BusImages/OnTimeBus.png');
+      const onTimeBusImage = await loadImageAsync('./BusImages/OnTimeBus.png');
       map.addImage('OnTimeBus', onTimeBusImage);
       
-      const ghostBusImage = await loadImageAsync('/BusImages/GhostBus.png');
+      const ghostBusImage = await loadImageAsync('./BusImages/GhostBus.png');
       map.addImage('GhostBus', ghostBusImage);
       
-      const veryLateBusImage = await loadImageAsync('/BusImages/VeryLate.png');
+      const veryLateBusImage = await loadImageAsync('./BusImages/VeryLate.png');
       map.addImage('VeryLateBus', veryLateBusImage);
       
-      const slightlyLateBusImage = await loadImageAsync('/BusImages/SlightlyLate.png');
+      const slightlyLateBusImage = await loadImageAsync('./BusImages/SlightlyLate.png');
       map.addImage('SlightlyLateBus', slightlyLateBusImage);
   
       console.log("after loading images");
@@ -97,6 +97,7 @@ function addRouteLayer() {
         'line-cap': 'round'
         },
         'paint': {
+        // Change later to colours[o]
         'line-color': colours[i],
         'line-width': 5
         }

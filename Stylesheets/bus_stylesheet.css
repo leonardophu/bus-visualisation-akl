@@ -28,6 +28,25 @@ body { margin: 0; padding: 0; font-family: "Poppins", sans-serif;}
     color: #c3c3c3;
 }
 
+.timerbox {
+  position: absolute;
+  top: 10px;
+  left: 100px;
+  font: 600 12px/20px "Poppins", sans-serif;
+  background-color: black;
+  color: #fff;
+  margin: 0;
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  height: 20px;
+  text-align: left; /* Center-align the text */
+  line-height: 20px;
+  width: 100px;
+}
+
+
 .info-box {
     position: absolute;
     margin: 60px 0px 0px 10px;
@@ -68,7 +87,7 @@ body { margin: 0; padding: 0; font-family: "Poppins", sans-serif;}
     width: 100%;
     max-height: 200px; /* Set the maximum height you want for the options */
     background-color: #ffffff;
-    border-radius: 0 0 5px 5px;
+    border-radius: 5px 5px 5px 5px;
     overflow-y: scroll; /* Enable the vertical scrollbar when content overflows */
     /* Add any other styles you want for the options container */
   }

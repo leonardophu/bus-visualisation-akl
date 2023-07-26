@@ -6,7 +6,7 @@ map.on('load', () => {
         // Initialization continues after loading bus icons
         addOrigins();
     });   
-    // addRouteLayer();
+    addRouteLayer();
     
     //Animation happening
 
@@ -51,7 +51,7 @@ map.on('load', () => {
        }
         
         //Update points
-        // Need tof ix this code 
+        // Need to fix this code 
         for(const index of points_index) {
             // Setting datapoint 
             const currentPosition = interpolationPoints[index].shift();
@@ -63,6 +63,7 @@ map.on('load', () => {
             if(checkingBusStatus !== currentBusStatus[i]) {
                 // Then we get the new colour 
                 currentBusStatus[i] = checkingBusStatus;
+                //Get new bus icon
                 newStatus = getBusIcons(i);
                 map.setLayoutProperty('point' + index, 'icon-image', newStatus);
             };
@@ -95,7 +96,7 @@ map.on('load', () => {
             interpolationPoints = JSON.parse(JSON.stringify(originalInterpolationPoints));
             currentBusStatus= JSON.parse(JSON.stringify(originalBusStatus));
             interpolatedBusStatus= JSON.parse(JSON.stringify(originalBusStatusInterpolation));
-
+            
             document.getElementById('directions').innerHTML = ''
             // Reset the counter to the minimum timestamp
             counter = minTimestamp;

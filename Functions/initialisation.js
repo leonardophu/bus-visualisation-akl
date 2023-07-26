@@ -1,3 +1,26 @@
+const colours = [
+  'red',
+  'blue',
+  'green',
+  'yellow',
+  'orange',
+  'purple',
+  'pink',
+  'cyan',
+  'magenta',
+  'brown',
+  'teal',
+  'lime',
+  'indigo',
+  'violet',
+  'maroon',
+  'olive',
+  'navy',
+  'coral',
+  'gold',
+  'silver',
+];
+
 // Initialisation
 origin = [];
 points_index = [];
