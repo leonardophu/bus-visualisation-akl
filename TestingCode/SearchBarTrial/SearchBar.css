@@ -41,3 +41,20 @@
   .list-items:hover {
     background-color: #dddddd;
   }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%; /* This will make the container take the full viewport height */
+    border:1px solid #000;
+    width : 50%;
+
+  }
+  
+  .box {
+    border: 1px solid #000;
+    padding: 20px;
+    text-align: center;
+    width:10%;
+  }
