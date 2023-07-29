@@ -37,11 +37,10 @@
         listItem.style.cursor = "pointer";
         listItem.setAttribute("onclick", "displayNames('" + i + "')");
         //Display matched part in bold
-        let word = "<b>" + i.substr(0, input.value.length) + "</b>";
+        let word = "<strong>" + i.substr(0, input.value.length) + "</strong>";
         word += i.substr(input.value.length);
         //display the value in array
         listItem.innerHTML = word;
-        console.log(listItem)
         document.querySelector(".list").appendChild(listItem);
       }
     }

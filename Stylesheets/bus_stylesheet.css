@@ -90,6 +90,7 @@ body { margin: 0; padding: 0; font-family: "Poppins", sans-serif;}
     border-radius: 5px 5px 5px 5px;
     overflow-y: scroll; /* Enable the vertical scrollbar when content overflows */
     /* Add any other styles you want for the options container */
+    padding: 0px 10px;
   }
   
   .busInputForm .list-items {
