@@ -1,5 +1,10 @@
 
   let sortedNames 
+  // These name sare used to store the state of the bus. Previous Value is the previous clicked bus value. Current is the one the user inputed 
+  let previousValue = ""
+  let currentValue = ""
+
+
   // Fetch the JSON file and process the data
   fetch('/Dataset/uniqueRoutes.json')
     .then(response => response.json())
@@ -36,14 +41,22 @@
         word += i.substr(input.value.length);
         //display the value in array
         listItem.innerHTML = word;
+        console.log(listItem)
         document.querySelector(".list").appendChild(listItem);
       }
     }
   });
   function displayNames(value) {
+    // Set previous value of the bus
+    previousValue = currentValue
+    // Get the current value of the bus
+    currentValue = value;
+    //Fill in the input.value with the clicked value whenever someone clicks on a status 
     input.value = value;
+
     removeElements();
   }
+
   function removeElements() {
     //clear all the item
     let items = document.querySelectorAll(".list-items");

@@ -1,6 +1,10 @@
 
   let sortedNames 
 
+  // These name sare used to store the state of the bus. Previous Value is the previous clicked bus value. Current is the one the user inputed 
+  let previousValue = ""
+  let currentValue = ""
+
   // Fetch the JSON file and process the data
   fetch('/Dataset/uniqueRoutes.json')
     .then(response => response.json())
@@ -30,6 +34,7 @@
         //One common class name
         listItem.classList.add("list-items");
         listItem.style.cursor = "pointer";
+        // When they click on something we want to record that value 
         listItem.setAttribute("onclick", "displayNames('" + i + "')");
         //Display matched part in bold
         let word = "<b>" + i.substr(0, input.value.length) + "</b>";
@@ -46,9 +51,21 @@
     removeElements(); // Clear the suggestion list after form submission
   });
 
+  //Got to fix this 
+
   function displayNames(value) {
+    // Set previous value of the bus
+    previousValue = currentValue
+    // Get the current value of the bus
+    currentValue = value;
+
+    //Fill in the input.value with the clicked value whenever someone clicks on a status 
     input.value = value;
+
     removeElements();
+    if (previousValue !== input.value) {
+      getBusData(input.value);
+    }
   }
   function removeElements() {
     //clear all the item
@@ -57,3 +74,8 @@
       item.remove();
     });
   }
+
+  function getBusData(busNumber) {
+    console.log("Working");
+  }
+
