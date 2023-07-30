@@ -12,11 +12,7 @@ function loadImageAsync(path) {
 // We want to create a asynchronous function, this way it runs all on one thread 
 
 async function loadBusIcons() {
-    console.warn("LoadBusIcons");
     try {
-      console.warn("LoadedBusIcons");
-      console.log("before loading images");
-  
       const onTimeBusImage = await loadImageAsync('./BusImages/OnTimeBus.png');
       map.addImage('OnTimeBus', onTimeBusImage);
       
@@ -29,7 +25,6 @@ async function loadBusIcons() {
       const slightlyLateBusImage = await loadImageAsync('./BusImages/SlightlyLate.png');
       map.addImage('SlightlyLateBus', slightlyLateBusImage);
   
-      console.log("after loading images");
     } catch (error) {
       console.error(error);
       console.log("There was an error");
@@ -66,7 +61,8 @@ function points(i) {
     return(point);
     };
     
-function addCancellation(i) {
+async function addCancellation(i) {
+    console.log("working");
     const directions = document.getElementById('directions');
     directions.innerHTML += `<li>Bus ${route_identity[i]} - Time : ${coordinateTimestamps[i][0]}</li>`
 }
@@ -123,8 +119,6 @@ function addOrigins() {
                 addCancellation(i);
             };
 
-            console.log("Solution");
-
             map.addLayer({
                 'id': 'point' + i,
                 'source': 'point' + i,
@@ -138,9 +132,6 @@ function addOrigins() {
                     'icon-ignore-placement': true
                 }
             });
-
-            console.log("Problem");
-
             //Points we are animating 
             points_index.push(i);
             //Points not to animate yet

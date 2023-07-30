@@ -1,3 +1,4 @@
+// Calculates the number of screens to represent each movement between bus nodes 
 function uniqueRouteSteps(timestamps) {
   // Want to store the number of steps per two points 
   const individualSteps = [];
@@ -5,7 +6,7 @@ function uniqueRouteSteps(timestamps) {
   for (let i = 0; i < timestamps.length - 1; i++) {
     // Calculate the difference in steps
     const difference = timestamps[i + 1] - timestamps[i];
-    // Use that difference to get the number of steps
+    // Use that difference to get the number of steps - a bit skeptical of round, could do better
     const multipliedValue = Math.round(difference * multiplier);
     // Store that value 
     individualSteps.push(multipliedValue);
@@ -14,11 +15,13 @@ function uniqueRouteSteps(timestamps) {
   return individualSteps;
 }
 
+// Function to check if two set of coordinates are the exact same 
 function isEqual(coord1, coord2) {
   return coord1[0] === coord2[0] && coord1[1] === coord2[1];
 }
 
-function interpolation(uniqueCoordinates,uniqueRoute, uniqueTimestamps, uniqueStatus) {
+// Function to do interpolation 
+function interpolation(uniqueCoordinates, uniqueRoute, uniqueTimestamps, uniqueStatus) {
 
     // Get number of steps between each set of coordinates
     const uniqueSteps = uniqueRouteSteps(uniqueTimestamps);
@@ -31,24 +34,34 @@ function interpolation(uniqueCoordinates,uniqueRoute, uniqueTimestamps, uniqueSt
     // For loop to now get the individual infromatio
     for (let i = 0; i < uniqueTimestamps.length - 1; i++) {
 
+      // We want to know if the bus status has changed. E.g. if the bus is now late compared to being it on time
       let changedBus = false; 
 
+      // First status is the current bus status
       let firstStatus = uniqueStatus[i];
       
+      // Checks if teh bus status has changed
       if(uniqueStatus[i] !== uniqueStatus[i + 1]) {
+        // keep track of the new status 
         secondStatus = uniqueStatus[i + 1];
+        // set changedBus = true since the bus status has now changed
         changedBus = true;
+        // Find the difference. If it's more than 2 we need to consider doing multiple changes in teh animation 
         statusDifference = Math.abs(secondStatus - firstStatus);
       };
 
       // Want to extract all coordinates between two points 
       const subsetCoordinates = [];
 
+      // Keep track of the two nodes 
       const startPoint = uniqueCoordinates[i];
       const endPoint = uniqueCoordinates[i + 1];
       
       // Loop through all point in the route
+
       let j = 0;
+
+      // Goal of while loop is to find the set of coordinates in the route we need to go through
       while (j < uniqueRoute.length) {
         
         let currentCoordinates = uniqueRoute[j];
@@ -75,16 +88,19 @@ function interpolation(uniqueCoordinates,uniqueRoute, uniqueTimestamps, uniqueSt
       //Get the distance, so that we can evenly spread the interpolated points
       const lineDistance = turf.length(line);
 
-      // Means no changed buses, don't ahve to worrk about it 
+      // Means no changed buses, don't have to worry about it 
       if (changedBus == false) {
         // Start at the start of the polyline -> then add the distance / number of steps. Such that we get "number of steps" interpolated points between the two points
         for (let z = 0; z < lineDistance; z += lineDistance / uniqueSteps[i]) {
+          //Find the interpolated along the line
           const interpolatedPoint = turf.along(line, z);
+          // Store the interpolated point 
           interpolatedPoints.push(interpolatedPoint.geometry.coordinates);
+          // Store the bus status 
           statusConditions.push(firstStatus);
-
         };
       } else {
+        // This means the bus condition has changed and we need to keep track of it.
         for (let z = 0; z < lineDistance; z += lineDistance / uniqueSteps[i]) {
           const interpolatedPoint = turf.along(line, z);
           interpolatedPoints.push(interpolatedPoint.geometry.coordinates);
@@ -95,8 +111,7 @@ function interpolation(uniqueCoordinates,uniqueRoute, uniqueTimestamps, uniqueSt
           // status is the status of the bus we will be pushing in
           let status;
 
-          // If the difference is one means that we only focus on 50/50 split
-          console.log(statusDifference);
+          // If the difference is one means that we only focus on 50/50 split.
           if (statusDifference == 1) {
             
             if (interpolationIndex < 0.5) {
@@ -105,7 +120,7 @@ function interpolation(uniqueCoordinates,uniqueRoute, uniqueTimestamps, uniqueSt
               status = secondStatus;
             }
 
-          // If the difference is by 2 then we will need to consider this change
+          // If the difference is by 2 then we will need to consider this change. Where the first third will be the first state. Second third be the inbetween state and the final third being the last state
           } else if (statusDifference == 2) {
             if (interpolationIndex < 1 / 3) {
               status = firstStatus;
@@ -116,6 +131,7 @@ function interpolation(uniqueCoordinates,uniqueRoute, uniqueTimestamps, uniqueSt
                 status = firstStatus - 1; // In-between status (1)
               }
             } else {
+              // It will just be the last state if it's no the inbetween or the first state
               status = secondStatus;
             };
           };
@@ -127,5 +143,6 @@ function interpolation(uniqueCoordinates,uniqueRoute, uniqueTimestamps, uniqueSt
 
       };
     };
+    // Return the interpolatedPoints and the statusConditions
     return [interpolatedPoints, statusConditions];
   };

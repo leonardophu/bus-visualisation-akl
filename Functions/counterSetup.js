@@ -6,11 +6,11 @@ let maxTimestamp = Number.MIN_VALUE;
 
 // We want to obtain the maxiumum and miniumum time stamps
 for (const timestamps of coordinateTimestamps) {
-const localMin = Math.min(...timestamps);
-const localMax = Math.max(...timestamps);
+    const localMin = Math.min(...timestamps);
+    const localMax = Math.max(...timestamps);
 
-minTimestamp = Math.min(minTimestamp, localMin);
-maxTimestamp = Math.max(maxTimestamp, localMax);
+    minTimestamp = Math.min(minTimestamp, localMin);
+    maxTimestamp = Math.max(maxTimestamp, localMax);
 }
 
 //Get the range of values which will be used.

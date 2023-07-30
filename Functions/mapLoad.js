@@ -71,6 +71,8 @@ map.on('load', () => {
         }
 
         // Also need to fix interpolation for duplicate points. The code below may be an issue. better to use counter < steps instead of relying on the points_index.length!!! 
+
+        console.log(points_index.length);
         if (points_index.length !== 0) {
             requestAnimationFrame(animate);
         };
@@ -89,7 +91,6 @@ map.on('load', () => {
                 points_obj[i].features[0].geometry.coordinates = origin[i];
                 // Really inefficient, tried using another variable = but keeps going to same reference point
                 points_waiting_index.push(i);
-                console.log(origin[i]);
             }
             // Want to add the origin points agin
             addOrigins();
@@ -97,13 +98,17 @@ map.on('load', () => {
             currentBusStatus= JSON.parse(JSON.stringify(originalBusStatus));
             interpolatedBusStatus= JSON.parse(JSON.stringify(originalBusStatusInterpolation));
             
-            document.getElementById('directions').innerHTML = ''
+            // This is getting really dumb now // below code
+            document.getElementById('directions').innerHTML = "";
+
             // Reset the counter to the minimum timestamp
             counter = minTimestamp;
             // Restart the animation
             animate();
         };
+
     });
+
     animate();
 
 });
