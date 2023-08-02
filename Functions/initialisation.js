@@ -32,7 +32,7 @@ function initialise() {
 // Get the desired points
 initialise();
 
-// This does it. Need to do it as var
+// Keeps the initial points 
 var originalInterpolationPoints = JSON.parse(JSON.stringify(interpolationPoints));
 var originalBusStatus = JSON.parse(JSON.stringify(currentBusStatus));
 var originalBusStatusInterpolation = JSON.parse(JSON.stringify(interpolatedBusStatus));

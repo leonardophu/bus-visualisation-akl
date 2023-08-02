@@ -76,7 +76,8 @@ body { margin: 0; padding: 0; font-family: "Poppins", sans-serif;}
     border-radius: 5px 5px 5px 5px;
     background-color: #ffffff;
     font-size: 16px;
-    /* input-specific styles here, if needed */
+    border-style: solid;
+    border-color: black;
   }
   
   .busInputForm ul {
@@ -89,8 +90,7 @@ body { margin: 0; padding: 0; font-family: "Poppins", sans-serif;}
     background-color: #ffffff;
     border-radius: 5px 5px 5px 5px;
     overflow-y: scroll; /* Enable the vertical scrollbar when content overflows */
-    /* Add any other styles you want for the options container */
-    padding: 0px 10px;
+    padding: 0px 12px 0px 10px;
   }
   
   .busInputForm .list-items {
@@ -99,6 +99,5 @@ body { margin: 0; padding: 0; font-family: "Poppins", sans-serif;}
   
   .busInputForm .list-items:hover {
     background-color: #dddddd;
-    /* hovered li-specific styles here, if needed */
   }
   

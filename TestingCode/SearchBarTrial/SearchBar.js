@@ -19,6 +19,10 @@
   
   //Execute function on keyup
   input.addEventListener("keyup", (e) => {
+
+    let directions = document.getElementById("directions");
+    directions.innerHTML = input.value;
+
     //loop through above array
     //Initially remove all elements ( so if user erases a letter or adds new letter then clean previous outputs)
     removeElements();

@@ -1,3 +1,5 @@
+let delta = 0;
+
 // When map loads, do initalisation
 
 map.on('load', () => {
@@ -17,6 +19,7 @@ map.on('load', () => {
     let counter = minTimestamp; //Counter stores current position in animation. We want to start at the minimum time stamp
 
     function animate() {
+        console.log("running");
         running = true;
         document.getElementById('replay').disabled = true;
         
@@ -72,14 +75,15 @@ map.on('load', () => {
 
         // Also need to fix interpolation for duplicate points. The code below may be an issue. better to use counter < steps instead of relying on the points_index.length!!! 
 
-        console.log(points_index.length);
         if (points_index.length !== 0) {
             requestAnimationFrame(animate);
         };
         counter = counter + 1;
     };
 
+    // This is going wrong, it's running this anyways what the heck 
     document.getElementById('replay').addEventListener('click', () => {
+        console.log("replay action");
         if (running) {
             void 0;
         } else {
@@ -92,14 +96,14 @@ map.on('load', () => {
                 // Really inefficient, tried using another variable = but keeps going to same reference point
                 points_waiting_index.push(i);
             }
-            // Want to add the origin points agin
-            addOrigins();
+
             interpolationPoints = JSON.parse(JSON.stringify(originalInterpolationPoints));
             currentBusStatus= JSON.parse(JSON.stringify(originalBusStatus));
             interpolatedBusStatus= JSON.parse(JSON.stringify(originalBusStatusInterpolation));
             
-            // This is getting really dumb now // below code
             document.getElementById('directions').innerHTML = "";
+            // Want to add the origin points agin
+            addOrigins();
 
             // Reset the counter to the minimum timestamp
             counter = minTimestamp;

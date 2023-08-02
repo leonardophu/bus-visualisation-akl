@@ -61,10 +61,9 @@ function points(i) {
     return(point);
     };
     
-async function addCancellation(i) {
-    console.log("working");
+function addCancellation(i) {
     const directions = document.getElementById('directions');
-    directions.innerHTML += `<li>Bus ${route_identity[i]} - Time : ${coordinateTimestamps[i][0]}</li>`
+    directions.innerHTML += `<li>Bus ${route_identity[i]} - Time : ${coordinateTimestamps[i][0]}</li>`;
 }
     
 // This code adds the routes to our map layer

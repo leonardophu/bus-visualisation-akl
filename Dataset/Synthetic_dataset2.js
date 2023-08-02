@@ -6,9 +6,6 @@ const coordinates = [
 
 
 // Further enhance this! 
-
-const cancelled = [[1, 2, 3]];
-
 const bus_status = [[3, 3, 3]];
 
 const route_identity = ["75"];
