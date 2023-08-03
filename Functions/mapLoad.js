@@ -19,7 +19,6 @@ map.on('load', () => {
     let counter = minTimestamp; //Counter stores current position in animation. We want to start at the minimum time stamp
 
     function animate() {
-        console.log("running");
         running = true;
         document.getElementById('replay').disabled = true;
         
@@ -73,13 +72,13 @@ map.on('load', () => {
 
         }
 
+        counter = counter + 1;
+        updateCounterValue(counter);
+        
         // Also need to fix interpolation for duplicate points. The code below may be an issue. better to use counter < steps instead of relying on the points_index.length!!! 
-
         if (points_index.length !== 0) {
             requestAnimationFrame(animate);
         };
-        counter = counter + 1;
-        updateCounterValue(counter);
     };
 
     // This is going wrong, it's running this anyways what the heck 
@@ -88,16 +87,11 @@ map.on('load', () => {
         if (running) {
             void 0;
         } else {
-            //Reinitialise our waiting and interpolationPoints 
-            points_waiting_index = [];
-            // Interpolation points which are our interpolated points
-            interpolationPoints = [];
             for(let i = 0; i < num_destinations; i++) {
                 points_obj[i].features[0].geometry.coordinates = origin[i];
-                // Really inefficient, tried using another variable = but keeps going to same reference point
-                points_waiting_index.push(i);
             }
 
+            points_waiting_index = JSON.parse(JSON.stringify(originalPointsWaitingIndex));
             interpolationPoints = JSON.parse(JSON.stringify(originalInterpolationPoints));
             currentBusStatus= JSON.parse(JSON.stringify(originalBusStatus));
             interpolatedBusStatus= JSON.parse(JSON.stringify(originalBusStatusInterpolation));
@@ -105,7 +99,6 @@ map.on('load', () => {
             document.getElementById('directions').innerHTML = "";
             // Want to add the origin points agin
             addOrigins();
-
             // Reset the counter to the minimum timestamp
             counter = minTimestamp;
             // Restart the animation

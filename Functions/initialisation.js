@@ -20,6 +20,7 @@ interpolatedBusStatus = [];
 function initialise() {
   for (let i = 0; i < num_destinations; i++) {
     origin.push(coordinates[i][0]);
+
     currentBusStatus.push(bus_status[i][0]);
     // Fix routes[0] 
     interpolated_data = interpolation(coordinates[i], routes[0], coordinateTimestamps[i], bus_status[i]);
@@ -33,6 +34,7 @@ function initialise() {
 initialise();
 
 // Keeps the initial points 
+var originalPointsWaitingIndex = JSON.parse(JSON.stringify(points_waiting_index));
 var originalInterpolationPoints = JSON.parse(JSON.stringify(interpolationPoints));
 var originalBusStatus = JSON.parse(JSON.stringify(currentBusStatus));
 var originalBusStatusInterpolation = JSON.parse(JSON.stringify(interpolatedBusStatus));
