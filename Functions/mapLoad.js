@@ -79,6 +79,7 @@ map.on('load', () => {
             requestAnimationFrame(animate);
         };
         counter = counter + 1;
+        updateCounterValue(counter);
     };
 
     // This is going wrong, it's running this anyways what the heck 
