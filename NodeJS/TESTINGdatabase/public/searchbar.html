@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Automcomplete Input</title>
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./css/SearchBar.css" />
+  </head>
+  <body>
+    
+    <form autocomplete="off">
+      <div>
+        <input type="text" id="input" placeholder="Type a name here..." />
+      </div>
+      <ul class="list"></ul>
+    </form>
+
+    <div class="info-box">
+      <p>
+          Cancelled Buses
+      </p>
+      <div id="directions"></div>
+    </div>
+
+    <p id = "testingcontent">0</p>
+  
+    <!--Script-->
+    <script src="./javascript/SearchBar.js"></script>
+    <script src="./javascript/loadRoad.js"></script>
+    
+  </body>
+</html>

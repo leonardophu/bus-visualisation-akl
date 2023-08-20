@@ -19,7 +19,7 @@ time_range = maxTimestamp - minTimestamp;
 // For each column or array, we want to assign a number of steps to this. For our analysis 
 designatedSteps = [];
 
-multiplier = 100;
+multiplier = 50;
 //For now 1 timestamp is equavialent to 50 steps.
 steps = time_range * multiplier;
 
