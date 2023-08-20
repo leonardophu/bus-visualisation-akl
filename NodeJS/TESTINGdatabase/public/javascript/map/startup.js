@@ -1,4 +1,3 @@
-console.log(map instanceof mapboxgl.Map);
 
 // Attach the 'load' event listener to the map
 map.on('load', async () => {
@@ -39,12 +38,11 @@ const originalInterpolationPoints = JSON.parse(JSON.stringify(intPoints));
 const originalBusStatus = JSON.parse(JSON.stringify(currentBusStatus));
 const originalBusStatusInterpolation = JSON.parse(JSON.stringify(busStatus));
 
-// Actual process in animation 
-console.log("Adding roads.");
+// Setting up map
 addRouteLayer(roads);
-
-
-
-
+loadBusIcons(() => {
+  // Initialization continues after loading bus icons
+  addOrigins();
+});   
 });
 
