@@ -4,7 +4,7 @@ async function getBusInterpolatedData(busNumber) {
         const busData = await fetch(`/busdata?busNumber=${busNumber}`);
         const data = await busData.json();
         
-        const busStatusArray = data.map(item => item.bus_status).flat();
+        const busStatusArray = data.map(item => item.bus_status);
         const intPointsArray = data.map(item => item.int_points);
         const startTimeArray = data.map(item => item.start_time);
 

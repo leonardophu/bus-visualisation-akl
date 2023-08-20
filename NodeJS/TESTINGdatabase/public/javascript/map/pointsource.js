@@ -54,3 +54,37 @@ function addOrigins() {
     };
     return;
 };
+
+// This code removes a source, so once a bus is done, it gets removed.
+function removeOldSource(i) {
+    map.removeLayer('point' + i);
+    map.removeSource('point' + i);
+}
+
+// This code adds a new source, so a new point on our map
+function getNewSource(i) {
+    map.addSource('point' + i, {
+                'type': 'geojson',
+                //Each point is associated with
+                'data': points_obj[i] });
+
+    busicon = getBusIcons(i);
+    if(busicon === "GhostBus") {
+        //addCancellation(i);
+    };
+
+
+    map.addLayer({
+    'id': 'point' + i,
+    'source': 'point' + i,
+    'type': 'symbol',
+    'layout': {
+        'icon-image': busicon,
+        'icon-size': 0.05,
+        'icon-rotate': ['get', 'bearing'],
+        'icon-rotation-alignment': 'map',
+        'icon-allow-overlap': true,
+        'icon-ignore-placement': true
+    }
+    });
+};
