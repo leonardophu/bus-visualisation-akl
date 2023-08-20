@@ -1,9 +1,7 @@
 // This code adds the routes to our map layer
 function addRouteLayer(routes) {
     //For loop to add the sources for the route and plot them on the map.
-    console.log("adding");
     for(let i = 0; i < routes.length; i++) {
-        console.log("Loading maps");
         map.addSource('route' + i, {
         'type': 'geojson',
         'data': {
@@ -54,8 +52,6 @@ async function getRoad(required_data) {
     // Assuming route_coordinates[0] contains an array with the first coordinate's [longitude, latitude]
     if (route_coordinates.length > 0 && route_coordinates[0].length > 0) {
         const [longitude, latitude] = route_coordinates[0][0]; // Extract longitude and latitude
-        
-        console.log("center");
         // Update the map center with the extracted coordinates
         map.setCenter([longitude, latitude]);
     }

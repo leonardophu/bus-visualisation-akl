@@ -19,7 +19,6 @@ function addOrigins() {
 //For loop to add the sources for the route and plot them on the map.
     for(let i = 0; i < num_destinations; i++) {
         //Starting timestamp
-        console.log("working");
         if(startTime[i] === minTimestamp) {
             
             map.addSource('point' + i, {
@@ -46,10 +45,12 @@ function addOrigins() {
                     'icon-ignore-placement': true
                 }
             });
+
             //Points we are animating 
             points_index.push(i);
             //Points not to animate yet
             points_waiting_index = points_waiting_index.filter(item => item !== i);
         }; 
     };
+    return;
 };

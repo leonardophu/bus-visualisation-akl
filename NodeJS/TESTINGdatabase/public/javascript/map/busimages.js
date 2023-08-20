@@ -1,22 +1,18 @@
 async function loadBusIcons() {
-    try {
-      const onTimeBusImage = await loadImageAsync('./busimages/OnTimeBus.png');
-      map.addImage('OnTimeBus', onTimeBusImage);
-      
-      const ghostBusImage = await loadImageAsync('./busimages/GhostBus.png');
-      map.addImage('GhostBus', ghostBusImage);
-      
-      const veryLateBusImage = await loadImageAsync('./busimages/VeryLate.png');
-      map.addImage('VeryLateBus', veryLateBusImage);
-      
-      const slightlyLateBusImage = await loadImageAsync('./busimages/SlightlyLate.png');
-      map.addImage('SlightlyLateBus', slightlyLateBusImage);
+  const onTimeBusImage = await loadImageAsync('./busimages/OnTimeBus.png');
+  map.addImage('OnTimeBus', onTimeBusImage);
   
-    } catch (error) {
-      console.error(error);
-      console.log("There was an error");
-    }
-}
+  const ghostBusImage = await loadImageAsync('./busimages/GhostBus.png');
+  map.addImage('GhostBus', ghostBusImage);
+  
+  const veryLateBusImage = await loadImageAsync('./busimages/VeryLate.png');
+  map.addImage('VeryLateBus', veryLateBusImage);
+  
+  const slightlyLateBusImage = await loadImageAsync('./busimages/SlightlyLate.png');
+  map.addImage('SlightlyLateBus', slightlyLateBusImage);
+
+  console.log("loaded");
+};
 
 function loadImageAsync(path) {
     return new Promise((resolve, reject) => {
