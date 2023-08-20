@@ -106,9 +106,7 @@ map.on('load', async () => {
       };
     };
     counter = counter + 1;
-
-    console.log(counter);
-    //Updatecountervalue
+    updateCounterValue(counter);
 
     // Also need to fix interpolation for duplicate points. The code below may be an issue. better to use counter < steps instead of relying on the points_index.length!!! 
     if (!(points_index.length === 0 && points_waiting_index.length === 0)) {
