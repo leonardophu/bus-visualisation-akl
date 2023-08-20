@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 app.use(express.static('public'))
 const { Client } = require('pg')
+const dotenv = require('dotenv');
+dotenv.config();
+
 
 app.listen(3000)
 

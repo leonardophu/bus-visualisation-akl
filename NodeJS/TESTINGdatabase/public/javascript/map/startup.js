@@ -1,40 +1,50 @@
-window.addEventListener("load", async function () {
-  const urlParams = new URLSearchParams(window.location.search);
-  const busNumber = urlParams.get('busNumber');
+console.log(map instanceof mapboxgl.Map);
 
-  const requiredData = await fetchBusData(busNumber);
-  const roads = await getRoad(requiredData);
+// Attach the 'load' event listener to the map
+map.on('load', async () => {
+console.log("Map loaded.");
 
-  const {busStatus, intPoints, startTime} = await getBusInterpolatedData(busNumber);
+// Get the busNumber from the URL parameters
+const urlParams = new URLSearchParams(window.location.search);
+const busNumber = urlParams.get('busNumber');
 
-  const num_destinations = intPoints.length;
-  let minTimestamp = startTime.MAX_VALUE;
+// Fetch the required data
+const requiredData = await fetchBusData(busNumber);
+const roads = await getRoad(requiredData);
+const {busStatus, intPoints, startTime} = await getBusInterpolatedData(busNumber);
 
-  // Initialisation
-  origin = [];
-  points_index = [];
-  points_waiting_index = [];
-  points_obj = [];
-  currentBusStatus = [];
+const num_destinations = intPoints.length;
 
-  function initialise() {
-    for (let i = 0; i < num_destinations; i++) {
-      origin.push(intPoints[i][0]);
-      currentBusStatus.push(busStatus[i][0]);
-      points_obj.push(points(origin[i]));
-      points_waiting_index.push(i);
-    }
+// Initialisation
+const origin = [];
+const points_index = [];
+const points_waiting_index = [];
+const points_obj = [];
+const currentBusStatus = [];
+
+function initialise() {
+  for (let i = 0; i < num_destinations; i++) {
+    origin.push(intPoints[i][0]);
+    currentBusStatus.push(busStatus[i][0]);
+    points_obj.push(points(origin[i]));
+    points_waiting_index.push(i);
   }
-  // Get the desired points
-  initialise();
+}
+// Get the desired points
+initialise();
 
-  // Keeps the initial points 
-  var originalPointsWaitingIndex = JSON.parse(JSON.stringify(points_waiting_index));
-  var originalInterpolationPoints = JSON.parse(JSON.stringify(intPoints));
-  var originalBusStatus = JSON.parse(JSON.stringify(currentBusStatus));
-  var originalBusStatusInterpolation = JSON.parse(JSON.stringify(busStatus));
+// Keeps the initial points 
+const originalPointsWaitingIndex = JSON.parse(JSON.stringify(points_waiting_index));
+const originalInterpolationPoints = JSON.parse(JSON.stringify(intPoints));
+const originalBusStatus = JSON.parse(JSON.stringify(currentBusStatus));
+const originalBusStatusInterpolation = JSON.parse(JSON.stringify(busStatus));
 
-  map.on('load', () => {
-    addRouteLayer(roads);
-  });
+// Actual process in animation 
+console.log("Adding roads.");
+addRouteLayer(roads);
+
+
+
+
 });
+

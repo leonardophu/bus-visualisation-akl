@@ -13,10 +13,6 @@ body { margin: 0; padding: 0; }
 </head>
 <body>
 <div id="map"></div>
-<script src="./javascript/map/fetch.js"></script>
-<script src="./javascript/map/road.js"></script>
-<script src="./javascript/map/pointsource.js"></script>
-<script src="./javascript/map/startup.js"></script>
 <script>
     
 	// TO MAKE THE MAP APPEAR YOU MUST
@@ -33,7 +29,13 @@ body { margin: 0; padding: 0; }
 
     // Make the map object global
     window.map = map;
+    console.log(map instanceof mapboxgl.Map);
 </script>
 
+<script src="./javascript/map/fetch.js"></script>
+<script src="./javascript/map/road.js"></script>
+<script src="./javascript/map/pointsource.js"></script>
+<script src="./javascript/map/startup.js"></script>
+
 </body>
-</html>
+</html> 
