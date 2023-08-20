@@ -1,3 +1,6 @@
+body { margin: 0; padding: 0; font-family: "Poppins", sans-serif;}
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
 .overlay {
     position: absolute;
     top: 10px;
@@ -25,22 +28,77 @@
     color: #c3c3c3;
 }
 
-
 .timerbox {
+  position: absolute;
+  top: 10px;
+  left: 100px;
+  font: 600 12px/20px "Poppins", sans-serif;
+  background-color: black;
+  color: #fff;
+  margin: auto;
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  width: 12%;
+  white-space: nowrap;
+}
+
+
+.info-box {
     position: absolute;
-    top: 10px;
-    left: 100px;
-    font: 600 12px/20px "Poppins", sans-serif;
-    background-color: black;
-    color: #fff;
-    margin: auto;
-    display: inline-block;
-    padding: 10px 20px;
-    border: none;
+    margin: 60px 0px 0px 10px;
+    width: 12.5%;
+    top: 0;
+    bottom: 70%;
+    padding: 20px;
+    background-color: #f5f5f5;
+    overflow-y: scroll;
+    font: 600 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     border-radius: 3px;
-    height: 20px;
-    text-align: center;
-    line-height: 20px;
-    width: 12%;
-    white-space: nowrap;
+}
+
+.busInputForm {
+    width: 40%;
+    height: 50%;
+    position: absolute;
+    transform: translate(-50%, 0%);
+    top: 0;
+    left: 50%;
   }
+  
+  .busInputForm input[type="text"] {
+    width: 100%;
+    padding: 15px 10px;
+    outline: none;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #ffffff;
+    font-size: 16px;
+    border-style: solid;
+    border-color: black;
+  }
+  
+  .busInputForm ul {
+    list-style: none;
+  }
+  
+  .busInputForm .list {
+    width: 100%;
+    max-height: 200px; /* Set the maximum height you want for the options */
+    background-color: #ffffff;
+    border-radius: 5px 5px 5px 5px;
+    overflow-y: scroll; /* Enable the vertical scrollbar when content overflows */
+    padding: 0px 12px 0px 10px;
+  }
+  
+  .busInputForm .list-items {
+    padding: 10px 5px;
+  }
+  
+  .busInputForm .list-items:hover {
+    background-color: #dddddd;
+  }
+  

@@ -8,11 +8,6 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 
 <link rel="stylesheet" href="./css/map.css">
-
-<style>
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
-</style>
 </head>
 <body>
 <div id="map"></div>
@@ -34,6 +29,25 @@ body { margin: 0; padding: 0; }
     <ul class="list"></ul>
 </form>
 
+<script>
+    // Get a reference to the form
+    const form = document.getElementById("busForm");
+
+    // Get a reference to the map element
+    const mapDiv = document.getElementById("map");
+
+    // Add an event listener to the map element to disable the form's pointer events on "mouseenter"
+    mapDiv.addEventListener("mouseenter", () => {
+        form.style.pointerEvents = "none";
+    });
+
+    // Add an event listener to the map element to enable the form's pointer events on "mouseleave"
+    mapDiv.addEventListener("mouseleave", () => {
+        form.style.pointerEvents = "auto";
+    });
+</script>
+
+<script src="./javascript/map/searchbar.js"></script>
 <script src="./javascript/map/mapcreate.js"></script>
 <script src="./javascript/map/timedisplay.js"></script>
 <script src="./javascript/map/busimages.js"></script>
