@@ -1,6 +1,3 @@
-// TO MAKE THE MAP APPEAR YOU MUST
-// ADD YOUR ACCESS TOKEN FROM
-// https://account.mapbox.com
 mapboxgl.accessToken = 'pk.eyJ1IjoibHBodTUwMCIsImEiOiJjbGhlcHNtZjAwcTdqM2xyNDNuMHBvcXg5In0.dfh6B9xx0-XC3AI6EZs8bg';
 const map = new mapboxgl.Map({
     container: 'map', // container ID
