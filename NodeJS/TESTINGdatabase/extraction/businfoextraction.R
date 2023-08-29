@@ -165,7 +165,6 @@ full_bus_data$arrival_time = full_bus_data$arrival_time + 12*3600
 full_bus_data$arrival_fixed = full_bus_data$act_arrival_time + 43200
 full_bus_data$act_arrival_time_date = as.POSIXct(full_bus_data$arrival_fixed, origin = "1970-01-01", tz = "UTC")
 
-View(full_bus_data %>% group_by(trip_id) %>% arrange(trip_id, stop_sequence))
 
 # Playing around with data
 full_bus_data$status = ifelse(full_bus_data$cancelled == TRUE, 0, 
