@@ -25,15 +25,16 @@ cancelled_trips = left_join(cancelled_trips, routes %>% select(route_id, route_s
 # Subsetted trips
 cancelled_trips = subset(cancelled_trips, departure_time < "24:00:00")
 
+timestamp_conversion = function(x) {
+  timestamps = paste(date_,x$departure_time)
+  timestamps = ymd_hms(timestamps, tz = "UTC")
+  timestamps = as.numeric(timestamps)
+  timestamps = timestamps  + 12*3600
+}
+
 # Converting the timestamps into seconds
 # Paste the required date
-cancelled_trips$timestamps = paste(date_,cancelled_trips$departure_time)
-# Convert the time to UTC
-cancelled_trips$timestamps = ymd_hms(cancelled_trips$timestamps, tz = "UTC")
-cancelled_trips$timestamps = as.numeric(cancelled_trips$timestamps)
-# Then add 12 hours since for some reason it's 12 hours behind 
-cancelled_trips$timestamps = cancelled_trips$timestamps  + 12*3600
-
+cancelled_trips$timestamps = timestamp_conversion(cancelled_trips)
 
 # Now dealing with the non cancelled trips 
 
@@ -87,25 +88,54 @@ problem_id = unique(problem_data$trip_id)
 
 problem_set = subset(arrival_bus, trip_id %in% problem_id)
 
-# Clean the problem dataset 
+# Clean the problem dataset - ask Thomas should I even clean this like what I have done before! 
 
 cleaned_problem = subset(problem_set, delay > - 1700 & delay < 3200)
-# Remove observations which are after another one. 
-cleaned_problem = subset(cleaned_problem, diff_stop_sequence >= 0)
 
-
+# Remove observations which stop_sequence is after another. 
+cleaned_problem = cleaned_problem[is.na(cleaned_problem$diff_stop_sequence) | cleaned_problem$diff_stop_sequence >= 0, ]
 
 # Get the problem data when there are sequences that are the same 
 pe = arrival_bus[sapply(arrival_bus$diff_stop_sequence, getEqualData), ]$trip_id
-problem_equal = subset(arrival_bus, trip_id %in% pe) %>% select(trip_id, delay, act_arrival_time_date,stop_sequence, diff_stop_sequence)
+
+#problem_equal = subset(arrival_bus, trip_id %in% pe) %>% 
+#  select(trip_id, delay, act_arrival_time_date,stop_sequence, diff_stop_sequence)
+
+problem_equal = subset(arrival_bus, trip_id %in% pe) 
+
 # Check for anamolies 
 unique(subset(problem_equal, delay > 3000)$trip_id)
 hist(problem_equal$delay)
 
-# Check for anamolies 
+# The way to fix this issue is going to remove all the observations after the FIRST one
+# Essentially just remove the 0's
 
-# Cases when there's only one observation
-unique(subset(problem_equal, delay < -1000)$trip_id)
-subset(problem_equal, trip_id == unique(subset(problem_equal, delay < -1000)$trip_id)[13])
+cleaned_equal = problem_equal[is.na(problem_equal$diff_stop_sequence) | problem_equal$diff_stop_sequence != 0, ]
 
-subset(problem_equal, trip_id == unique(trip_id)[20])
+# Take the cleaned equal ids and the problem set ids and combine together! 
+
+cleaned_data = rbind(cleaned_equal, cleaned_problem)
+
+# Take the trip_id of the cleaned data, we want to ignore these now.
+cleaned_ids = unique(cleaned_data$trip_id)
+other_ids = unique(arrival_bus$trip_id)[!unique(arrival_bus$trip_id) %in% cleaned_ids]
+
+# Double checkign for any ideas that might have leaked through 
+valid_data = subset(arrival_bus, trip_id %in% other_ids)
+
+# We see that this should be 0. As there should not be any ids that the less and equal have the same! 
+unique(valid_data[sapply(valid_data$diff_stop_sequence, getLessData), ]$trip_id)
+unique(valid_data[sapply(valid_data$diff_stop_sequence, getEqualData), ]$trip_id)
+
+# This shows that there's no intercept between the two problem sets.
+any(pe %in% problem_id)
+any(problem_id %in% pe)
+
+# Now we can combine all the data together! Want 
+# valid_data (data that was already right!)
+# cleaned_data (data that has been cleaned)
+# cancelled_trips (trips that were cancelled!)
+
+non_cancelled_trips = rbind(cleaned_data, valid_data)
+cancelled_trips
+
