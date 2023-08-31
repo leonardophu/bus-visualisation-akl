@@ -30,6 +30,7 @@ timestamp_conversion = function(x) {
   timestamps = ymd_hms(timestamps, tz = "UTC")
   timestamps = as.numeric(timestamps)
   timestamps = timestamps  + 12*3600
+  return(timestamps)
 }
 
 # Converting the timestamps into seconds
@@ -148,10 +149,93 @@ non_cancelled_trips = left_join(non_cancelled_trips, trips %>% select(trip_id, s
 
 # Seems like something is wrong here!! Need to ask Thomas Lumley
 any(is.na(non_cancelled_trips$shape_id.y))
-non_cancelled_trips[is.na(non_cancelled_trips$shape_id.y),]$route_short_name
-
-non_cancelled_trips %>% select(trip_id, shape_id, act_arrival_time_date, status, stop_lat, stop_lon, route_id, route_short_name)
+unique(non_cancelled_trips[is.na(non_cancelled_trips$shape_id.y),]$route_short_name)
 
 
-cancelled_trips %>% select(trip_id, shape_id, timestamps, status, stop_lat, stop_lon, route_id, route_short_name)
+# For non-cancelled trips we need to put in the first and last point
+nc = non_cancelled_trips %>% select(trip_id, shape_id.x, timestamps, status, stop_lat, stop_lon, route_id, route_short_name, stop_sequence)
+colnames(nc)[2] = "shape_id"
+nc_hs = subset(nc, !is.na(shape_id))
 
+
+getRemainingSequence = function(tripData) {
+  
+  # This code already assumes you have the date and make sure we get the times that are valid! 
+  fullSequence = subset(stop_times, trip_id == tripData$trip_id[1] & departure_time < "24:00:00")
+  
+  if (min(tripData$stop_sequence) != 1) {
+    
+    # Get the dataset that has the first and earliest stop sequence
+    first_sequence = subset(fullSequence, stop_sequence %in% c(1, min(tripData$stop_sequence)))
+    # Get the difference in time stamps
+    first_sequence$timestamps = timestamp_conversion(first_sequence$departure_time)
+    
+    first_stop_loc = which(first_sequence$stop_sequence == 1)
+    
+    first_stop = first_sequence$stop_id[first_stop_loc]
+    
+    first_stop = subset(stops, stop_id == first_stop)
+    
+    # Difference between the new times 
+    diff_time = abs(first_sequence$timestamps[2] - first_sequence$timestamps[1])
+    
+
+    first_data_point = data.frame(trip_id = tripData$trip_id[1], 
+                                  shape_id = tripData$shape_id[1],
+                                  timestamps = tripData$timestamps[1] - diff_time,
+                                  status = tripData$status[1], 
+                                  stop_lat = first_stop$stop_lat,
+                                  stop_lon = first_stop$stop_lon, 
+                                  route_id = tripData$route_id[1],
+                                  route_short_name = tripData$route_short_name[1],
+                                  stop_sequence = 1)
+    print(nrow(first_data_point))
+    tripData = rbind(first_data_point, tripData)
+  }
+  
+  
+  # Might need to fix this code
+  
+  # We want to specifically do less than. This is because of the edge case that a stop sequence is delayed but ends up at a very late time 
+  if (max(tripData$stop_sequence) < max(fullSequence$stop_sequence)) {
+    
+    last_sequence = subset(fullSequence, stop_sequence %in% c(max(fullSequence$stop_sequence), max(tripData$stop_sequence)))
+
+    last_sequence$timestamps = timestamp_conversion(last_sequence$departure_time)
+    
+    last_stop_loc = which(last_sequence$stop_sequence == max(fullSequence$stop_sequence))
+    
+    last_stop = first_sequence$stop_id[last_stop_loc]
+    
+    last_stop = subset(stops, stop_id == last_stop)
+    
+    diff_time = abs(first_sequence$timestamps[2] - first_sequence$timestamps[1])
+    
+    
+    last_data_point = data.frame(trip_id = tripData$trip_id[1], 
+                                  shape_id = tripData$shape_id[1],
+                                  # Add the additional time 
+                                  timestamps = tripData$timestamps[nrow(tripData)] + diff_time,
+                                  status = tripData$status[1], 
+                                  stop_lat = last_stop$stop_lat,
+                                  stop_lon = last_stop$stop_lon, 
+                                  route_id = tripData$route_id[1],
+                                  route_short_name = tripData$route_short_name[1],
+                                  stop_sequence = max(fullSequence$stop_sequence))
+    tripData = rbind(tripData, last_data_point)
+  }
+  # Just to make sure we return when the stop_sequence is arranged correctly! 
+  return(tripData %>% arrange(stop_sequence))
+}
+
+
+getRemainingSequence(nc_hs[1:4,])
+
+
+
+
+
+
+c = cancelled_trips %>% select(trip_id, shape_id, timestamps, status, stop_lat, stop_lon, route_id, route_short_name)
+
+non_cancelled_trips

@@ -162,8 +162,8 @@ full_bus_data$arrival_time = ymd_hms(full_bus_data$arrival_time, tz = "UTC")
 full_bus_data$arrival_time = as.numeric(full_bus_data$arrival_time)
 full_bus_data$arrival_time = full_bus_data$arrival_time + 12*3600
 
-full_bus_data$arrival_fixed = full_bus_data$act_arrival_time + 43200
-full_bus_data$act_arrival_time_date = as.POSIXct(full_bus_data$arrival_fixed, origin = "1970-01-01", tz = "UTC")
+full_bus_data$timestamps = full_bus_data$act_arrival_time + 43200
+full_bus_data$act_arrival_time_date = as.POSIXct(full_bus_data$timestamps, origin = "1970-01-01", tz = "UTC")
 
 
 # Playing around with data
