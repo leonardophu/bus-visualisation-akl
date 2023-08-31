@@ -52,8 +52,6 @@ map.on('load', async () => {
   let running = false;
   let counter = minTimestamp;
 
-  console.log(startTime);
-
   function animate() {
     running = true;
     document.getElementById('replay').disabled = true;
