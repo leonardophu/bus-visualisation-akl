@@ -154,8 +154,13 @@ unique(non_cancelled_trips[is.na(non_cancelled_trips$shape_id.y),]$route_short_n
 
 # For non-cancelled trips we need to put in the first and last point
 nc = non_cancelled_trips %>% select(trip_id, shape_id.x, timestamps, status, stop_lat, stop_lon, route_id, route_short_name, stop_sequence)
+
 colnames(nc)[2] = "shape_id"
+
+# We doing this for now until we fix it! 
 nc_hs = subset(nc, !is.na(shape_id))
+
+splitted_nc_hs = split(nc_hs, nc_hs$trip_id)
 
 
 getRemainingSequence = function(tripData) {
@@ -189,7 +194,7 @@ getRemainingSequence = function(tripData) {
                                   route_id = tripData$route_id[1],
                                   route_short_name = tripData$route_short_name[1],
                                   stop_sequence = 1)
-    print(nrow(first_data_point))
+    
     tripData = rbind(first_data_point, tripData)
   }
   
@@ -205,18 +210,18 @@ getRemainingSequence = function(tripData) {
     
     last_stop_loc = which(last_sequence$stop_sequence == max(fullSequence$stop_sequence))
     
-    last_stop = first_sequence$stop_id[last_stop_loc]
+    last_stop = last_sequence$stop_id[last_stop_loc]
     
     last_stop = subset(stops, stop_id == last_stop)
     
-    diff_time = abs(first_sequence$timestamps[2] - first_sequence$timestamps[1])
+    diff_time = abs(last_sequence$timestamps[2] - last_sequence$timestamps[1])
     
     
     last_data_point = data.frame(trip_id = tripData$trip_id[1], 
                                   shape_id = tripData$shape_id[1],
                                   # Add the additional time 
                                   timestamps = tripData$timestamps[nrow(tripData)] + diff_time,
-                                  status = tripData$status[1], 
+                                  status = tripData$status[nrow(tripData)], 
                                   stop_lat = last_stop$stop_lat,
                                   stop_lon = last_stop$stop_lon, 
                                   route_id = tripData$route_id[1],
@@ -228,14 +233,18 @@ getRemainingSequence = function(tripData) {
   return(tripData %>% arrange(stop_sequence))
 }
 
+library(parallel)
+# Want to use all the cores we have 
+cores = detectCores()
+# Want to run using parallisation since it saves us alot of times! Would estimate around 9 minutes to complete if we were doing single core 
+processed_dataframes =  mclapply(splitted_nc_hs, getRemainingSequence, mc.cores=cores) 
+processed_dataframes = do.call(rbind, processed_dataframes) 
 
-getRemainingSequence(nc_hs[1:4,])
+
+c = cancelled_trips %>% select(trip_id, shape_id, timestamps, status, stop_lat, stop_lon, route_id, route_short_name, stop_sequence)
+
+# This should be the complete dataset! 
+complete_dataset = rbind(processed_dataframes, c)
+complete_dataset = complete_dataset %>% group_by(trip_id) %>% arrange(trip_id, stop_sequence) 
 
 
-
-
-
-
-c = cancelled_trips %>% select(trip_id, shape_id, timestamps, status, stop_lat, stop_lon, route_id, route_short_name)
-
-non_cancelled_trips
