@@ -163,11 +163,13 @@ nc_hs = subset(nc, !is.na(shape_id))
 splitted_nc_hs = split(nc_hs, nc_hs$trip_id)
 
 
+# Function to get the first and last rows for teh dataset
 getRemainingSequence = function(tripData) {
   
   # This code already assumes you have the date and make sure we get the times that are valid! 
   fullSequence = subset(stop_times, trip_id == tripData$trip_id[1] & departure_time < "24:00:00")
   
+  # Checks to see if we got the start of the sequence
   if (min(tripData$stop_sequence) != 1) {
     
     # Get the dataset that has the first and earliest stop sequence
@@ -175,6 +177,7 @@ getRemainingSequence = function(tripData) {
     # Get the difference in time stamps
     first_sequence$timestamps = timestamp_conversion(first_sequence$departure_time)
     
+    #T Then we need to get the first stop lat and lon
     first_stop_loc = which(first_sequence$stop_sequence == 1)
     
     first_stop = first_sequence$stop_id[first_stop_loc]
@@ -204,16 +207,20 @@ getRemainingSequence = function(tripData) {
   # We want to specifically do less than. This is because of the edge case that a stop sequence is delayed but ends up at a very late time 
   if (max(tripData$stop_sequence) < max(fullSequence$stop_sequence)) {
     
+    # Create a dataframe which has the last stop sequence and the stop sequence we have in dataset
     last_sequence = subset(fullSequence, stop_sequence %in% c(max(fullSequence$stop_sequence), max(tripData$stop_sequence)))
 
+    # Convert to right format
     last_sequence$timestamps = timestamp_conversion(last_sequence$departure_time)
     
+    # THen get the stop lat and lon for that stop
     last_stop_loc = which(last_sequence$stop_sequence == max(fullSequence$stop_sequence))
     
     last_stop = last_sequence$stop_id[last_stop_loc]
     
     last_stop = subset(stops, stop_id == last_stop)
     
+    # Get the difference
     diff_time = abs(last_sequence$timestamps[2] - last_sequence$timestamps[1])
     
     
@@ -247,4 +254,4 @@ c = cancelled_trips %>% select(trip_id, shape_id, timestamps, status, stop_lat, 
 complete_dataset = rbind(processed_dataframes, c)
 complete_dataset = complete_dataset %>% group_by(trip_id) %>% arrange(trip_id, stop_sequence) 
 
-
+write.csv(complete_dataset, file = "complete_data.csv", row.names = FALSE)

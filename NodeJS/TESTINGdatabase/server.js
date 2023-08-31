@@ -19,14 +19,8 @@ client.connect(function(err) {
 });
 
 
-app.get('/trial.html', (req,res) => {
-    console.log('Here')
-    res.json({message: "Error"})
-})
-
 app.get('/routedata', async(req, res) => {
     const busNumber = req.query.busNumber;
-
     if (busNumber) {
         const result = await client.query('SELECT shape_id, route_name FROM route_table WHERE route_name = $1', [busNumber])
         res.json(result.rows);
