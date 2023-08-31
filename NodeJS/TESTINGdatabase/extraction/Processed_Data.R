@@ -26,7 +26,7 @@ cancelled_trips = left_join(cancelled_trips, routes %>% select(route_id, route_s
 cancelled_trips = subset(cancelled_trips, departure_time < "24:00:00")
 
 timestamp_conversion = function(x) {
-  timestamps = paste(date_,x$departure_time)
+  timestamps = paste(date_,x)
   timestamps = ymd_hms(timestamps, tz = "UTC")
   timestamps = as.numeric(timestamps)
   timestamps = timestamps  + 12*3600
@@ -34,8 +34,9 @@ timestamp_conversion = function(x) {
 
 # Converting the timestamps into seconds
 # Paste the required date
-cancelled_trips$timestamps = timestamp_conversion(cancelled_trips)
+cancelled_trips$timestamps = timestamp_conversion(cancelled_trips$departure_time)
 
+cancelled_trips$status = 0
 # Now dealing with the non cancelled trips 
 
 # Get the day make sure it matches 
@@ -136,6 +137,21 @@ any(problem_id %in% pe)
 # cleaned_data (data that has been cleaned)
 # cancelled_trips (trips that were cancelled!)
 
+# Columns I want for interpolation 
+# ("trip_id", "shape_id", "timestamps", "status", "stop_lat", "stop_lon", "route_id", "route_short_name")
+
+# For non-cancelled trips we need to get the dataset
 non_cancelled_trips = rbind(cleaned_data, valid_data)
-cancelled_trips
+# For places that don't have a shape_id nor lats or lon, we can get them. 
+non_cancelled_trips = left_join(non_cancelled_trips, stop_times, by = c("trip_id", "stop_id", "stop_sequence"))
+non_cancelled_trips = left_join(non_cancelled_trips, trips %>% select(trip_id, shape_id), by = c("trip_id"))
+
+# Seems like something is wrong here!! Need to ask Thomas Lumley
+any(is.na(non_cancelled_trips$shape_id.y))
+non_cancelled_trips[is.na(non_cancelled_trips$shape_id.y),]$route_short_name
+
+non_cancelled_trips %>% select(trip_id, shape_id, act_arrival_time_date, status, stop_lat, stop_lon, route_id, route_short_name)
+
+
+cancelled_trips %>% select(trip_id, shape_id, timestamps, status, stop_lat, stop_lon, route_id, route_short_name)
 
