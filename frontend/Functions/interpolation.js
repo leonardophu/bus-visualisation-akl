@@ -81,6 +81,7 @@ function interpolation(uniqueCoordinates, uniqueRoute, uniqueTimestamps, uniqueS
         }
         j++;
       };
+      console.log(subsetCoordinates)
 
       // Create a polyline of our coordinates
       const line = turf.lineString(subsetCoordinates);
