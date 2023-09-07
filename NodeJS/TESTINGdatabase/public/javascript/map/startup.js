@@ -3,6 +3,7 @@ let minTimestamp;
 let points_index;
 let points_waiting_index;
 let busStatus, intPoints, startTime;
+let wholemap = True
 
 
 const origin = [];
@@ -12,18 +13,6 @@ const points_obj = [];
 let currentBusStatus = [];
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 map.on('load', async () => {
   console.log("Map loaded.");
 
@@ -31,10 +20,15 @@ map.on('load', async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const busNumber = urlParams.get('busNumber');
 
-  // Fetch the required data
-  const busStops = await getBusStops(busNumber);
+  // If there are no bus numbers, this suggests we are seeing the whole map! 
+  if (busNumber !== null) {
+    const roads = await getRoad(requiredData);
+    const busStops = await getBusStops(busNumber);
+    wholemap = False;
+  }
+
   const requiredData = await fetchBusData(busNumber);
-  const roads = await getRoad(requiredData);
+
   // We get the busStops given a busNumber
   ({busStatus, intPoints, startTime} = await getBusInterpolatedData(busNumber));
 
@@ -60,7 +54,12 @@ map.on('load', async () => {
   const originalBusStatusInterpolation = JSON.parse(JSON.stringify(busStatus));
 
   // Setting up map
-  addRouteLayer(roads);
+
+  // Check if we are looking at specific busses, if so load route and bus stops
+  if (wholemap === False) {
+    addBusStopsLayer(busStops);
+    addRouteLayer(roads);
+  }
   await loadBusIcons();
   addOrigins();  
 
