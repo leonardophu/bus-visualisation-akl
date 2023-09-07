@@ -47,3 +47,20 @@ app.get('/busdata', async(req,res) => {
     const result = await client.query('SELECT * from points WHERE bus_number = $1', [busNumber])
     res.json(result.rows);
 })
+
+app.get('/busstopsdata', async(req,res) => {
+    const busNumber = req.query.busNumber;
+    const sql = `
+        WITH cte AS (
+            SELECT DISTINCT(stop_id)
+            FROM stoptrips_table
+            WHERE route_name = $1
+        )
+        SELECT s.*
+        FROM stop_table s
+        JOIN cte c ON s.stop_id = c.stop_id
+    `;
+    
+    const result = await client.query(sql, [busNumber]);
+    res.json(result.rows);
+})
