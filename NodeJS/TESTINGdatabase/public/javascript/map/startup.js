@@ -96,10 +96,11 @@ map.on('load', async () => {
       const checkingBusStatus = busStatus[index].shift();
       // Checking if the colours have changed or not
       if(checkingBusStatus !== currentBusStatus[index]) {
+          console.log('bus change')
           // Then we get the new colour 
           currentBusStatus[index] = checkingBusStatus;
           //Get new bus icon
-          newStatus = getBusIcons(i);
+          newStatus = getBusIcons(index);
           map.setLayoutProperty('point' + index, 'icon-image', newStatus);
       };
     };

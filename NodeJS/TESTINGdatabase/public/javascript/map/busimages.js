@@ -25,11 +25,11 @@ function loadImageAsync(path) {
 
 // This code gets our bus icons from our desktop 
 function getBusIcons(i) {
-  if(currentBusStatus[i] == 0) {
+  if(currentBusStatus[i] == 1) {
       return('OnTimeBus');
-  } else if (currentBusStatus[i] == 1) {
-      return('SlightlyLateBus');
   } else if (currentBusStatus[i] == 2) {
+      return('SlightlyLateBus');
+  } else if (currentBusStatus[i] == 3) {
       return('VeryLateBus');
   } else {
       return('GhostBus');

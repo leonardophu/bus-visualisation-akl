@@ -4,7 +4,8 @@ function updateCounterValue(counter) {
     console.log(currentTime);
 }
 
-function getDate(milliseconds) {
+function getDate(second) {
+    const milliseconds = second * 1000
     const date = new Date(milliseconds);
     
     //Get components of the date 
