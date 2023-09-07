@@ -44,7 +44,14 @@ app.get('/shapedata', async(req,res) => {
 
 app.get('/busdata', async(req,res) => {
     const busNumber = req.query.busNumber;
-    const result = await client.query('SELECT * from points WHERE bus_number = $1', [busNumber])
+    let values = [];
+    if (busNumber) {
+        sql = `SELECT * from points WHERE bus_number = $1`;
+        values.push(busNumber);
+    } else {
+        sql = `SELECT * from points`;
+    }
+    const result = await client.query(sql, values);
     res.json(result.rows);
 })
 

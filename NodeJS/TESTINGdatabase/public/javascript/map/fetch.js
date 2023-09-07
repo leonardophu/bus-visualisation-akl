@@ -1,21 +1,22 @@
 async function getBusInterpolatedData(busNumber) {
-    console.log(busNumber);
-    if (busNumber) {
-        const busData = await fetch(`/busdata?busNumber=${busNumber}`);
-        const data = await busData.json();
-        
-        const busStatusArray = data.map(item => item.bus_status);
-        const intPointsArray = data.map(item => item.int_points);
-        const startTimeArray = data.map(item => item.start_time);
+    let busData; 
 
-        return {
-            busStatus: busStatusArray,
-            intPoints: intPointsArray,
-            startTime: startTimeArray
-        };
+    if (busNumber) {
+        busData = await fetch(`/busdata?busNumber=${busNumber}`);
     } else {
-        // Consider the case when it doesn't exist
+        busData = await fetch(`/busdata`);
     }
+    const data = await busData.json();
+        
+    const busStatusArray = data.map(item => item.bus_status);
+    const intPointsArray = data.map(item => item.int_points);
+    const startTimeArray = data.map(item => item.start_time);
+
+    return {
+        busStatus: busStatusArray,
+        intPoints: intPointsArray,
+        startTime: startTimeArray
+    };
 }
 
 async function fetchBusData(busNumber) {
@@ -32,3 +33,4 @@ async function fetchBusData(busNumber) {
         console.log("Need to continue on ")
     }
 }
+

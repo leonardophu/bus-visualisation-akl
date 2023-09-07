@@ -3,7 +3,7 @@ let minTimestamp;
 let points_index;
 let points_waiting_index;
 let busStatus, intPoints, startTime;
-let wholemap = True
+let wholemap = true;
 
 
 const origin = [];
@@ -24,7 +24,7 @@ map.on('load', async () => {
   if (busNumber !== null) {
     const roads = await getRoad(requiredData);
     const busStops = await getBusStops(busNumber);
-    wholemap = False;
+    wholemap = false;
   }
 
   const requiredData = await fetchBusData(busNumber);
@@ -56,7 +56,7 @@ map.on('load', async () => {
   // Setting up map
 
   // Check if we are looking at specific busses, if so load route and bus stops
-  if (wholemap === False) {
+  if (wholemap === false) {
     addBusStopsLayer(busStops);
     addRouteLayer(roads);
   }
