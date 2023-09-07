@@ -56,7 +56,7 @@ app.get('/busstopsdata', async(req,res) => {
             FROM stoptrips_table
             WHERE route_name = $1
         )
-        SELECT s.*
+        SELECT s.stop_coordinates
         FROM stop_table s
         JOIN cte c ON s.stop_id = c.stop_id
     `;

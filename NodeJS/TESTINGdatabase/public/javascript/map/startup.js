@@ -11,6 +11,19 @@ points_waiting_index = [];
 const points_obj = [];
 let currentBusStatus = [];
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 map.on('load', async () => {
   console.log("Map loaded.");
 
@@ -19,8 +32,10 @@ map.on('load', async () => {
   const busNumber = urlParams.get('busNumber');
 
   // Fetch the required data
+  const busStops = await getBusStops(busNumber);
   const requiredData = await fetchBusData(busNumber);
   const roads = await getRoad(requiredData);
+  // We get the busStops given a busNumber
   ({busStatus, intPoints, startTime} = await getBusInterpolatedData(busNumber));
 
   num_destinations = intPoints.length;
