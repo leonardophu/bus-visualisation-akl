@@ -29,7 +29,7 @@ function addOrigins() {
 
             busicon = getBusIcons(i);
             if(busicon === "GhostBus") {
-                //addCancellation(i);
+                addCancellation(i);
             };
 
             map.addLayer({
@@ -70,7 +70,7 @@ function getNewSource(i) {
 
     busicon = getBusIcons(i);
     if(busicon === "GhostBus") {
-        //addCancellation(i);
+        addCancellation(i);
     };
 
 
