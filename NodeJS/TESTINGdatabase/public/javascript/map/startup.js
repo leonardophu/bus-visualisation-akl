@@ -4,7 +4,8 @@ let points_index;
 let points_waiting_index;
 let busStatus, intPoints, startTime;
 let wholemap = true;
-
+let roads;
+let busStops;
 
 const origin = [];
 points_index = [];
@@ -20,14 +21,13 @@ map.on('load', async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const busNumber = urlParams.get('busNumber');
 
+  const requiredData = await fetchBusData(busNumber);
   // If there are no bus numbers, this suggests we are seeing the whole map! 
   if (busNumber !== null) {
-    const roads = await getRoad(requiredData);
-    const busStops = await getBusStops(busNumber);
+    roads = await getRoad(requiredData);
+    busStops = await getBusStops(busNumber);
     wholemap = false;
   }
-
-  const requiredData = await fetchBusData(busNumber);
 
   // We get the busStops given a busNumber
   ({busStatus, intPoints, startTime} = await getBusInterpolatedData(busNumber));
