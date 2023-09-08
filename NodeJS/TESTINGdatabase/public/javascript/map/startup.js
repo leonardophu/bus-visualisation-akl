@@ -142,7 +142,7 @@ map.on('load', async () => {
         currentBusStatus= JSON.parse(JSON.stringify(originalBusStatus));
         busStatus= JSON.parse(JSON.stringify(originalBusStatusInterpolation));
         
-        //document.getElementById('directions').innerHTML = "";
+        document.getElementById('directions').innerHTML = "";
         
         // Want to add the origin points agin
         addOrigins();
