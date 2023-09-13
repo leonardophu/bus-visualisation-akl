@@ -3,10 +3,20 @@ library(DBI)
 library(RODBC)
 library(odbc)
 library(mapview)
+library(parallel)
+library(magick)
+library(foreach)
+library(doParallel)
 
-source('connection.R')
 source('step_generator.R')
 source('frame_generator.R')
+
+# Initalise to do parallelisatoin
+numCores <- detectCores()
+cl <- makeCluster(numCores)
+registerDoParallel(cl)
+# Allow cluster to make their frames
+clusterExport(cl, "frame_generator")
 
 createMap = function(fps, seconds) {
   # Clearing the images folder
@@ -17,11 +27,20 @@ createMap = function(fps, seconds) {
   
   # Creating the image
   steps = step_generator(fps, seconds)
-  for(timestamp in steps) {
-    frame_generator(timestamp)
-  }
   
-  library(magick)
-  img <- image_read(list.files(path = "images/", pattern="m*.png", full.names = TRUE))
-  image_animate(img, loop = 1, optimize = TRUE, fps = 20)
+  # Parallelization using foreach
+  foreach(step=steps, .packages=c("leaflet", "DBI", "RODBC", "odbc", "mapview")) %dopar% {
+    frame_generator(step)
+  }
 }
+createMap(20, 60)
+stopCluster(cl)
+
+runMap = function(loop = 0, fps = 20) {
+  img <- image_read(list.files(path = "images/", pattern="m*.png", full.names = TRUE))
+  animation = image_animate(img, loop = loop, optimize = TRUE, fps = fps)
+  image_write(animation, "images/animation.gif")
+  animation 
+}
+
+runMap()

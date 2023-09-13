@@ -1,10 +1,18 @@
 step_generator = function(fps = 1, seconds = 60) {
   
+  con = dbConnect(RPostgres::Postgres(),
+                  dbname = "bus_trial",
+                  port = 5432,
+                  user = "postgres",
+                  password = "postgres",
+                  host = "localhost")
+  
   total_frames = fps * seconds
   time_range = dbGetQuery(con, 'SELECT MIN(timestamp) AS "min", 
                           MAX(timestamp) AS "max", 
                           MAX(timestamp) - MIN(timestamp) AS "range"
                           FROM points_fps')
+  DBI::dbDisconnect(con)
   
   
   # Sequential timestamps to extract
