@@ -33,7 +33,8 @@ createMap = function(fps, seconds) {
     frame_generator(step)
   }
 }
-createMap(20, 60)
+
+system.time(createMap(20, 60))
 stopCluster(cl)
 
 runMap = function(loop = 0, fps = 20) {

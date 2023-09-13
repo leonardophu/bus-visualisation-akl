@@ -31,7 +31,7 @@ frame_generator = function(timestamp) {
                                 lat = busses$latitude[i], 
                                 radius = 2,  # adjust the radius as you like
                                 color = colours[busses$status[i] + 1],  # adjust the color as you like
-                                fillOpacity = 1) 
+                                fillOpacity = 0.8) 
   }
   mapshot(m, file = paste0("images/m", timestamp, ".png"), delay = 0.05) # delay to ensure all tiles are loaded
 }

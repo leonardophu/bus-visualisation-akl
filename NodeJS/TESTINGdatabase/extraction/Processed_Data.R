@@ -35,9 +35,14 @@ timestamp_conversion = function(x) {
 
 # Converting the timestamps into seconds
 # Paste the required date
-cancelled_trips$timestamps = timestamp_conversion(cancelled_trips$departure_time)
+cancelled_trips$timestamps = timestamp_conversion(cancelled_trips$departure_time) - 12 * 3600
 
 cancelled_trips$status = 0
+
+
+
+
+
 # Now dealing with the non cancelled trips 
 
 # Get the day make sure it matches 
@@ -254,4 +259,15 @@ c = cancelled_trips %>% select(trip_id, shape_id, timestamps, status, stop_lat, 
 complete_dataset = rbind(processed_dataframes, c)
 complete_dataset = complete_dataset %>% group_by(trip_id) %>% arrange(trip_id, stop_sequence) 
 
+# Convert the timestamps column to POSIXct
+complete_dataset$datetime <- as.POSIXct(complete_dataset$timestamps, origin="1970-01-01", tz="UTC")
+
+complete_dataset <- complete_dataset[as.Date(complete_dataset$datetime) == "2023-05-05", ]
+complete_dataset = complete_dataset %>% select(-datetime)
+
 write.csv(complete_dataset, file = "complete_data.csv", row.names = FALSE)
+
+
+
+
+
