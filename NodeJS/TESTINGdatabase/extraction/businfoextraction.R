@@ -91,6 +91,7 @@ extract_data = function(trip_updates, alerts){
     select(trip_id) %>% 
     mutate(cancelled = TRUE)
   
+  print(cancelled_buses)
   # Joining all relevant bus info datasets together
   bus_arrivals_full = trip_data %>% 
     left_join(stop_times %>% 
@@ -145,7 +146,7 @@ full_bus_data = distinct(full_bus_data)
 
 full_bus_data = subset(full_bus_data, !route_short_name %in% c("WEST", "EAST","NORTH", "SOUTH", "GULF"))
 
-# Converting all non-cancelled busses cancellation statuses to false
+# Converting all non-cancelled busses cancellation statuses to false -> This could be big problem!!! 
 full_bus_data$cancelled = ifelse(is.na(full_bus_data$cancelled) == TRUE, FALSE, TRUE)
 
 # Some rows don't have both arrival and departure time. If we don't have both, we assume they are the same
@@ -166,6 +167,16 @@ full_bus_data$timestamps = full_bus_data$act_arrival_time + 43200
 full_bus_data$act_arrival_time_date = as.POSIXct(full_bus_data$timestamps, origin = "1970-01-01", tz = "UTC")
 
 
+# Getting the busses 
+
+# Get the day make sure it matches 
+day <- format(full_bus_data$act_arrival_time_date, "%d")
+# Get the day here we are working the 5th
+our_day = "05"
+
+arrival_bus = subset(full_bus_data, day == our_day)
+
+
 # Playing around with data
 full_bus_data$status = ifelse(full_bus_data$cancelled == TRUE, 0, 
                            ifelse(full_bus_data$delay < 300, 1,
@@ -175,5 +186,5 @@ full_bus_data$status = ifelse(full_bus_data$cancelled == TRUE, 0,
 
 
 
-
+full_bus_data
 

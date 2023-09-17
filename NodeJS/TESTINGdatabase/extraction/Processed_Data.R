@@ -267,6 +267,7 @@ complete_dataset = complete_dataset %>% select(-datetime)
 
 write.csv(complete_dataset, file = "complete_data.csv", row.names = FALSE)
 
+subset(full_bus_data, trip_id == "1395-27007-26400-2-ded0d60f")
 
 
 
