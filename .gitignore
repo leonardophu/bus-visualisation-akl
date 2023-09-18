@@ -138,3 +138,5 @@ NodeJS/TESTINGdatabase/interpolation/
 NodeJS/TESTINGdatabase/shapefiles/
 NodeJS/TESTINGdatabase/production/images
 NodeJS/TESTINGdatabase/extraction/complete_data.csv
+NodeJS/TESTINGdatabase/extraction/R_interpolation/.RDataTmp
+NodeJS/TESTINGdatabase/extraction/R_interpolation/interpolated_data.csv
