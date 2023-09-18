@@ -130,3 +130,11 @@ dist
 .pnp.*
 
 .env
+
+# Specific files we want to ignore 
+
+NodeJS/TESTINGdatabase/data/
+NodeJS/TESTINGdatabase/interpolation/
+NodeJS/TESTINGdatabase/shapefiles/
+NodeJS/TESTINGdatabase/production/images
+NodeJS/TESTINGdatabase/extraction/complete_data.csv
