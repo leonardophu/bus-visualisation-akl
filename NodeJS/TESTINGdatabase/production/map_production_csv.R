@@ -15,7 +15,7 @@ createMap = function(fps = 1, seconds = 60, numCores = NA) {
   done = mclapply(steps, frame_generator, mc.cores = numCores)
 }
 
-runMap = function(loop = 0, fps = 20) {
+runMap = function(loop = 0, fps = 1) {
   file_names <- list.files(path = "images/", pattern = "m*.png", full.names = TRUE)
   file_names <- sort(file_names)
   img <- image_read(file_names)

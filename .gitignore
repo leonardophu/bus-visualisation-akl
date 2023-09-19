@@ -121,7 +121,6 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
-
 # yarn v2
 .yarn/cache
 .yarn/unplugged
@@ -129,15 +128,23 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# env
 .env
 
-# Specific files we want to ignore 
-
+# data files
 NodeJS/TESTINGdatabase/data/
 NodeJS/TESTINGdatabase/interpolation/
 NodeJS/TESTINGdatabase/shapefiles/
 NodeJS/TESTINGdatabase/production/images
 NodeJS/TESTINGdatabase/extraction/complete_data.csv
-NodeJS/TESTINGdatabase/extraction/R_interpolation/.RDataTmp
 NodeJS/TESTINGdatabase/extraction/R_interpolation/interpolated_data.csv
-NodeJS/.DS_Store
+*.DS_Store
+
+# Session Data files
+*.RData
+*.RDataTmp
+
+# History files
+*.Rhistory
+.Rapp.history
+
