@@ -11,3 +11,5 @@ source('step_generator_csv.R')
 source('frame_generator_csv.R')
 source('map_production_csv.R')
 
+createMap(20,60) 
+runMap(20)

@@ -22,7 +22,13 @@ intFilesApply = lapply(intFiles, load_file)
 # Combine the list of data frames into a single data frame
 intPoints = do.call(rbind, intFilesApply)
 
+
 # Have to read from Processed_Data_WithoutCancel.R
+
+trips = read.table("../../businfo/trips.txt", header = TRUE, sep = ",", quote = "", fill = TRUE)
+
+routes = read.table("../../businfo/routes.txt", header = TRUE, sep = ",", quote = "")
+
 trip_route = trips %>%
   select(trip_id, route_id, shape_id) %>%
   left_join(routes %>% select(route_id, route_short_name), by = c('route_id')) 

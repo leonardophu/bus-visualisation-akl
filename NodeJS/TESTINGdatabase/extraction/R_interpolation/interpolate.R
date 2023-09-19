@@ -18,11 +18,6 @@ runInterpolation = function() {
   }
 }
 
-system.time(runInterpolation())
-
-
-
-
 
 # In parallisation 
 

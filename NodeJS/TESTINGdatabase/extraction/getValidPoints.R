@@ -4,6 +4,9 @@ library(dplyr)
 t = arrival_bus
 arrival_bus = t
 
+# Convert to POSIXct
+minimum_time =  as.numeric(as.POSIXct(paste(date_, "04:00:00"), format="%Y-%m-%d %H:%M:%S", tz="UTC"))
+
 timestamp_conversion = function(x) {
   useful_date = date_
   timestamps = paste(useful_date,x)
@@ -170,7 +173,28 @@ colnames(nc)[2] = "shape_id"
 # We doing this for now until we fix it! 
 nc_hs = subset(nc, !is.na(shape_id))
 
+# Get the nc_hs that has the required time 
+nc_hs = nc_hs[nc_hs$timestamps >= minimum_time,]
+
 splitted_nc_hs = split(nc_hs, nc_hs$trip_id)
+
+# Function to get required rows within each group
+getPointsExceed = function(data, time_col = "departure_time") {
+  before_24 = data %>% 
+    filter(!!sym(time_col) <= '24:00:00')
+  
+  # If before_24 is empty, return an empty data frame
+  if(nrow(before_24) == 0) {
+    return(data.frame())
+  }
+  
+  after_24_closest = data %>% 
+    filter(!!sym(time_col) > '24:00:00') %>%
+    arrange(!!sym(time_col)) %>%
+    head(1)
+  
+  return(rbind(before_24, after_24_closest))
+}
 
 
 # Function to get the first and last rows for teh dataset
@@ -178,8 +202,9 @@ getRemainingSequence = function(tripData) {
   
   # This code already assumes you have the date and make sure we get the times that are valid! 
   
-  fullSequence = subset(stop_times, trip_id == tripData$trip_id[1] & departure_time < "24:00:00")
-  
+  fullSequence = subset(stop_times, trip_id == tripData$trip_id[1])
+  # Ensures we get that extra bit! 
+  fullSequence = getPointsExceed(fullSequence)
   # Checks to see if we got the start of the sequence
   if (min(tripData$stop_sequence) != 1) {
     
@@ -208,7 +233,6 @@ getRemainingSequence = function(tripData) {
                                   route_id = tripData$route_id[1],
                                   route_short_name = tripData$route_short_name[1],
                                   stop_sequence = 1)
-    
     tripData = rbind(first_data_point, tripData)
   }
   
@@ -219,8 +243,9 @@ getRemainingSequence = function(tripData) {
   if (max(tripData$stop_sequence) < max(fullSequence$stop_sequence)) {
     
     # Create a dataframe which has the last stop sequence and the stop sequence we have in dataset
-    last_sequence = subset(fullSequence, stop_sequence %in% c(max(fullSequence$stop_sequence), max(tripData$stop_sequence)))
     
+    last_sequence = subset(fullSequence, stop_sequence %in% c(max(fullSequence$stop_sequence), max(tripData$stop_sequence)))
+    print(last_sequence)
     # Convert to right format
     last_sequence$timestamps = timestamp_conversion(last_sequence$departure_time)
     
@@ -233,8 +258,9 @@ getRemainingSequence = function(tripData) {
     
     # Get the difference
     diff_time = abs(last_sequence$timestamps[2] - last_sequence$timestamps[1])
+    print(diff_time)
     
-    
+    print("error")
     last_data_point = data.frame(trip_id = tripData$trip_id[1], 
                                  shape_id = tripData$shape_id[1],
                                  # Add the additional time 
@@ -252,6 +278,8 @@ getRemainingSequence = function(tripData) {
 }
 
 # TESTING
+
+
 
 library(parallel)
 # Want to use all the cores we have 
