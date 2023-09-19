@@ -139,6 +139,10 @@ NodeJS/dataExtraction/production/images
 NodeJS/dataExtraction/*.csv
 *.DS_Store
 
+NodeJS/dataExtraction/old_extraction/complete_data.csv
+NodeJS/TESTINGdatabase/businfo/stop_times.txt
+NodeJS/dataExtraction/R_Extraction/complete_data.csv
+
 # Session Data files
 *.RData
 *.RDataTmp
