@@ -14,7 +14,7 @@ frame_generator = function(timestamp) {
                                lat = busses$lat[i], 
                                radius = 2,  # adjust the radius as you like
                                color = colours[busses$status[i] + 1],  # adjust the color as you like
-                               fillOpacity = 0.8) 
+                               fillOpacity = 0.2) 
   }
   
   m <- m %>% addControl(

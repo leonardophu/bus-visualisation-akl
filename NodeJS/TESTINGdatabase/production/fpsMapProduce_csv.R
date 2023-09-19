@@ -11,4 +11,3 @@ source('step_generator_csv.R')
 source('frame_generator_csv.R')
 source('map_production_csv.R')
 
-frame_generator()
