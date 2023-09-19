@@ -132,13 +132,11 @@ dist
 .env
 
 # data files
-NodeJS/TESTINGdatabase/data/
-NodeJS/TESTINGdatabase/interpolation/
-NodeJS/TESTINGdatabase/shapefiles/
-NodeJS/TESTINGdatabase/production/images
-NodeJS/TESTINGdatabase/extraction/complete_data.csv
-NodeJS/TESTINGdatabase/R_Extraction/complete_data.csv
-NodeJS/TESTINGdatabase/extraction/R_interpolation/interpolated_data.csv
+NodeJS/dataExtraction/data/
+NodeJS/dataExtraction/interpolation/
+NodeJS/dataExtraction/shapefiles/
+NodeJS/dataExtraction/production/images
+NodeJS/dataExtraction/*.csv
 *.DS_Store
 
 # Session Data files
