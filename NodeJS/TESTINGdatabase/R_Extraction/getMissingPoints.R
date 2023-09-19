@@ -1,4 +1,4 @@
-source('getValidPoints.R')
+#ASSUMES we have ran getValidPoints
 
 missing_timestamp_conversion = function(dates, times) {
   # Convert strings to dates and hms (hours, minutes, seconds) objects
@@ -30,6 +30,24 @@ trip_route = trips %>%
            !(trip_id %in% valid_ids))
 
 missingPoints = subset(stop_times, trip_id %in% trip_route$trip_id)
+
+# Function to get required rows within each group
+getPointsExceed <- function(data) {
+  before_24 <- data %>% 
+    filter(departure_time <= '24:00:00')
+  
+  # If before_24 is empty, return an empty data frame
+  if(nrow(before_24) == 0) {
+    return(data.frame())
+  }
+  
+  after_24_closest <- data %>% 
+    filter(departure_time > '24:00:00') %>%
+    arrange(departure_time) %>%
+    head(1)
+  
+  return(rbind(before_24, after_24_closest))
+}
 
 missingPoints = missingPoints %>% 
   group_by(trip_id) %>% 

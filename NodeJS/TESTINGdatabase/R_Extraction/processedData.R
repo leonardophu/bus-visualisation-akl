@@ -1,19 +1,4 @@
-# Extracting data another way
-
-# Bus extraction 
-library(tidyverse)
-library(leaflet)
-library(jsonlite)
-library(httr)
-
-key = "567bb1fb7ab64582905c7812648075e1"
-
-# Directory of bus 
-busInfoPath = "../businfo/"
-# Get all the data together
-date_= "2023-05-05"
-# 
-dates_dir <- paste("..", date_, sep = "/")
+#
 
 #Reading in static files 
 stops = read.table(paste0(busInfoPath,"stops.txt"), header = TRUE, sep = ",", quote = "")
@@ -91,13 +76,13 @@ extract_data = function(trip_updates){
 
 full_bus_data <- data.frame()
 # Getting unique times for each specific date
-times <- list.files(dates_dir, recursive = FALSE)
+times <- list.files(dataInfoPath, recursive = FALSE)
 
 # Loop to get dataset
 for(time in times) {
   
   # For a given time for a given day, go into that file directory
-  dates_time_dir <- paste(dates_dir, time, sep = "/")
+  dates_time_dir <- paste(dataInfoPath, time, sep = "/")
   trip_updates <- read_json(paste(dates_time_dir, "tripupdates.json", sep = "/"))
   
   # Get the required dataset for a given day 
@@ -149,12 +134,7 @@ full_bus_data$status = ifelse(full_bus_data$delay < 300, 1,
                                   ifelse(full_bus_data$delay < 600, 2, 3))
 
 # Now dealing with the non cancelled trips 
-
 # Get the day make sure it matches 
 day <- format(full_bus_data$act_arrival_time_date, "%d")
-
-# Get the day here we are working the 5th. Not perfect for days like 31 etc.
-our_day = as.integer("05")
-
 arrival_bus = subset(full_bus_data, day != our_day - 1 & day != our_day - 2)
 
