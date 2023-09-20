@@ -4,6 +4,7 @@ library(parallel)
 library(magick)
 library(mapview)
 library(foreach)
+library(av)
 
 intData = fread("../extraction/R_interpolation/interpolated_data.csv")
 
