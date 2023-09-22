@@ -17,21 +17,42 @@ library(data.table)
 library(grid)
 source('ggmapFrame.R')
 
-bbox = c(174.51351991992968, -37.16610140560065, 175.4871832621358, -36.498361075414714)
-bbox2 = c(174.71623867157618, -36.88300601996546, 174.7994086071811, -36.83723524397908)
+adjust_to_square <- function(lon1, lat1, lon2, lat2) {
+  # Calculate the differences
+  lon_diff <- abs(lon2 - lon1)
+  lat_diff <- abs(lat2 - lat1)
+  
+  # Find the maximum difference
+  max_diff <- max(lon_diff, lat_diff)
+  
+  # Adjust the points to form a square
+  if(lon_diff < max_diff) {
+    lon2 <- lon1 + sign(lon2 - lon1) * max_diff
+  }
+  
+  if(lat_diff < max_diff) {
+    lat2 <- lat1 + sign(lat2 - lat1) * max_diff
+  }
+  
+  return(c(lon1, lat1, lon2, lat2))
+}
+
+
+bbox = adjust_to_square(174.51351991992968, -37.16610140560065, 175.4871832621358, -36.498361075414714)
+bbox2 = adjust_to_square(174.71623867157618, -36.88300601996546, 174.7994086071811, -36.83723524397908)
 zoom_level_full = 11
 zoom_level_min = 15
+
 auckland_map = get_stamenmap(bbox, zoom = zoom_level_full, maptype = 'terrain')
 auckland_central = get_stamenmap(bbox2, zoom = zoom_level_min, maptype = 'terrain')
 
-colour_scheme <- c("0" = "black", "1" = "blue", "2" = "orange", "3" = "red")
+colour_scheme <- c("0" = "#595656", "1" = "blue", "2" = "orange", "3" = "red")
 
 intData = fread("Desktop/bus-visualisation-akl/NodeJS/dataExtraction/R_interpolation/interpolated_data.csv")
 intData$status = factor(intData$status)
 
 time_seq = seq(range(intData$timestamps)[1], range(intData$timestamps)[2])
 
-getFrame(time_seq[31000])
+getFrame(time_seq[46202])
 
-grid.newpage()
 
