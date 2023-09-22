@@ -1,5 +1,12 @@
 getFrame = function(timestamp) {
   grid.newpage()
+  
+  posix_time <- as.POSIXct(timestamp, origin="1970-01-01", tz="UTC")
+  
+  # Extract the hour and minute
+  hour <- format(posix_time, format="%H")
+  minute <- format(posix_time, format="%M")
+  
   timed_data = subset(intData, timestamps == timestamp)
   
   zoomed_points = timed_data %>% filter(lon >= bbox2[1], 
@@ -20,7 +27,15 @@ getFrame = function(timestamp) {
              colour = "black",            # Outline color
              linetype = "solid",          # Type of line
              size = 1)   +
-    
+    # Add timestamp text
+    annotate("text",
+             x = 174.51351991992968,     # X-coordinate of the text
+             y = -36.498361075414714,     # Y-coordinate of the text
+             label = paste0("Time: ", hour, ":", minute),          # The timestamp you want to display
+             vjust = 1.2,                 # Vertical adjustment to position the text
+             hjust = 0,                  # Horizontal adjustment to position the text
+             size = 15,                   # Text size
+             color = "black") + 
     # Remove x and y axes
     theme(axis.text.x = element_blank(),
           axis.text.y = element_blank(),

@@ -37,9 +37,10 @@ adjust_to_square <- function(lon1, lat1, lon2, lat2) {
   return(c(lon1, lat1, lon2, lat2))
 }
 
+# Adjust square is not good! Get rectangle instead cause of curvatures and physics!
 
-bbox = adjust_to_square(174.51351991992968, -37.16610140560065, 175.4871832621358, -36.498361075414714)
-bbox2 = adjust_to_square(174.71623867157618, -36.88300601996546, 174.7994086071811, -36.83723524397908)
+bbox = c(174.51351991992968, -37.16610140560065, 175.4871832621358, -36.498361075414714)
+bbox2 = c(174.71623867157618, -36.88300601996546, 174.7994086071811, -36.83723524397908)
 zoom_level_full = 11
 zoom_level_min = 15
 
