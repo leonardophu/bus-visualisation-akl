@@ -139,6 +139,7 @@ NodeJS/dataExtraction/production/images
 NodeJS/dataExtraction/*.csv
 NodeJS/dataExtraction/*/*.csv
 NodeJS/dataExtraction/**/*.csv
+NodeJS/dataExtraction/**/*.png
 *.DS_Store
 
 NodeJS/dataExtraction/R_interpolation/interpolated_data.csv

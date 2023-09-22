@@ -54,6 +54,6 @@ intData$status = factor(intData$status)
 
 time_seq = seq(range(intData$timestamps)[1], range(intData$timestamps)[2])
 
-getFrame(time_seq[46202])
+getFrame(time_seq[38552])
 
 
