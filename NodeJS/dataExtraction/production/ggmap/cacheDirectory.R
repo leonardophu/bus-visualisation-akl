@@ -1,4 +1,5 @@
 library(httr)
+library(png)  # Add this line to load the png package
 
 # Define a cache directory
 cache_dir <- "../map_cache/"
@@ -16,7 +17,7 @@ download_and_cache_map <- function(bbox, zoom, maptype) {
   # Check if the map image is already cached
   if (!file.exists(filename)) {
     # If not cached, download the map
-    map_url <- sprintf("http://maps.stamen.com/{maptype}/%d/%d/%d.png", zoom, bbox[1], bbox[2])
+    map_url <- sprintf("http://maps.stamen.com/%s/%.6f/%.6f/%.6f.png", maptype, zoom, bbox[1], bbox[2])
     map_response <- GET(map_url)
     
     # Check if the download was successful
@@ -34,3 +35,6 @@ download_and_cache_map <- function(bbox, zoom, maptype) {
   map <- readPNG(filename)
   return(map)
 }
+
+
+          
