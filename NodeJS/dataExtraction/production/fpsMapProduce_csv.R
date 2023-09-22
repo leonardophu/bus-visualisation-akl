@@ -6,7 +6,7 @@ library(mapview)
 library(foreach)
 library(av)
 
-intData = fread("../extraction/R_interpolation/interpolated_data.csv")
+intData = fread("../R_interpolation/interpolated_data.csv")
 
 source('step_generator_csv.R')
 source('frame_generator_csv.R')

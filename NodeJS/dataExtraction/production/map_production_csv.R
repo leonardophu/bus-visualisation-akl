@@ -1,4 +1,4 @@
-4createMap = function(fps = 1, seconds = 60, numCores = NA) {
+createMap = function(fps = 1, seconds = 60, numCores = NA) {
   # Clearing the images folder
   files_to_remove <- list.files(path = "images/", pattern = "m*.png", full.names = TRUE)
   if (length(files_to_remove) > 0) {

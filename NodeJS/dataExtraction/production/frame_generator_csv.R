@@ -5,14 +5,18 @@ frame_generator = function(timestamp) {
   time_display <- format(posix_time, format = "%H:%M")
   
   busses = intData[intData$timestamps == timestamp,]
+  
+  bottom_left <- c(lon = 174.7, lat = -36.9)
+  top_right <- c(lon = 174.9, lat = -36.8)
+  
   m <- leaflet() %>%
     addTiles() %>%
-    setView(lng=174.768, lat=-36.852, zoom = 10)
+    setView(lng=174.768, lat=-36.852, zoom = 10) 
   
   for (i in 1 :nrow(busses)) {
     m = m %>% addCircleMarkers(lng = busses$lon[i], 
                                lat = busses$lat[i], 
-                               radius = 2,  # adjust the radius as you like
+                               radius = 0.5,  # adjust the radius as you like
                                color = colours[busses$status[i] + 1],  # adjust the color as you like
                                fillOpacity = 0.2) 
   }
