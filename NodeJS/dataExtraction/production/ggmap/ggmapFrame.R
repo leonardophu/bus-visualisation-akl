@@ -29,8 +29,11 @@ getFrame = function(timestamp) {
           axis.ticks.x=element_blank(),
           axis.ticks.y=element_blank(),
           # Remove the legend
-          legend.position = "none") + 
-    theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))
+          legend.position = "none",
+          plot.margin = margin(t = 0,  # Top margin
+                               r = 0,  # Right margin
+                               b = 0,  # Bottom margin
+                               l = 0)) # Left margin
   
   zoomed_visual = ggmap(auckland_central) + 
     geom_point(data = zoomed_points, aes(x = lon, y= lat, color = status), size = 3, alpha = 0.6) +
@@ -42,8 +45,11 @@ getFrame = function(timestamp) {
           axis.ticks.x=element_blank(),
           axis.ticks.y=element_blank(),
           # Remove the legend
-          legend.position = "none") + 
-    theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))
+          legend.position = "none",
+          plot.margin = margin(t = 0,  # Top margin
+                               r = 0,  # Right margin
+                               b = 0,  # Bottom margin
+                               l = 0)) # Left margin
   
   print(auckland_visual)
   vp <- viewport(x=0.85, y=1, width=.4, height=.4,
