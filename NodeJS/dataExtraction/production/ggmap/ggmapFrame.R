@@ -66,11 +66,18 @@ getFrame = function(timestamp) {
                                b = 0,  # Bottom margin
                                l = 0)) # Left margin
   
-  print(auckland_visual)
-  vp <- viewport(x=0.85, y=1, width=.4, height=.4,
-                 just=c("right", "top"))
-  pushViewport(vp)
-  print(zoomed_visual, newpage = FALSE)
-  upViewport()
+  combined_plot <- function() {
+    print(auckland_visual)
+    vp <- viewport(x=1, y=1, width=.4, height=.32, just=c("right", "top"))
+    pushViewport(vp)
+    print(zoomed_visual, newpage = FALSE)
+    upViewport()
+  }
+  
+  png("combined_plot.png", width = 6*300, height = 4*300, res = 300)  # the width and height are in pixels; the res is in dpi
+  combined_plot()
+  dev.off()
 }
+
+
 

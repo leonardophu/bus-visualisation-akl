@@ -49,7 +49,7 @@ auckland_central = get_stamenmap(bbox2, zoom = zoom_level_min, maptype = 'terrai
 
 colour_scheme <- c("0" = "#595656", "1" = "blue", "2" = "orange", "3" = "red")
 
-intData = fread("Desktop/bus-visualisation-akl/NodeJS/dataExtraction/R_interpolation/interpolated_data.csv")
+intData = fread("../R_interpolation/interpolated_data.csv")
 intData$status = factor(intData$status)
 
 time_seq = seq(range(intData$timestamps)[1], range(intData$timestamps)[2])
