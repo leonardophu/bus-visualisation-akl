@@ -12,6 +12,8 @@ ranges = rbind(trip_data[trip_data$timestamps < given_timestamp,] %>% arrange(de
 
 shapes_file = read.csv(paste0(shape_path, shape_id, ".csv"))
 
+# This would be put into a function lol 
+
 start = which(shapes_file$shape_pt_lat == ranges$stop_lat[1] & shapes_file$shape_pt_lon == ranges$stop_lon[1])
 end = which(shapes_file$shape_pt_lat == ranges$stop_lat[2] & shapes_file$shape_pt_lon == ranges$stop_lon[2])
 
