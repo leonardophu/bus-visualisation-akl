@@ -58,5 +58,3 @@ time_seq = seq(range(intData$timestamps)[1], range(intData$timestamps)[2])
 getFrame(time_seq[38552])
 
 
-api = "AIzaSyB9Y7KRqCh5Wu7AKtbMA_U5d7HAiUww1Xk"
-
