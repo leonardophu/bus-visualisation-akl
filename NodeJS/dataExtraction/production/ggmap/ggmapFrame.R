@@ -65,18 +65,22 @@ getFrame = function(timestamp) {
                                r = 0,  # Right margin
                                b = 0,  # Bottom margin
                                l = 0)) # Left margin
+  g1 = ggplotGrob(auckland_visual)
+  g2 = ggplotGrob(zoomed_visual)
   
-  combined_plot <- function() {
-    print(auckland_visual)
-    vp <- viewport(x=1, y=1, width=.4, height=.32, just=c("right", "top"))
-    pushViewport(vp)
-    print(zoomed_visual, newpage = FALSE)
-    upViewport()
-  }
+  # Get the bounding box of the map
+  bb <- attr(auckland_map, "bb")
   
-  png("combined_plot.png", width = 6*300, height = 4*300, res = 300)  # the width and height are in pixels; the res is in dpi
-  combined_plot()
-  dev.off()
+  grid.draw(g1)
+  vp <- viewport(x = 1, y = 1, width = unit(0.4, "npc"), height = unit(0.32, "npc"), just = c("right", "top"))
+  pushViewport(vp)
+  grid.draw(g2)
+  upViewport()
+  
+  
+#  png("combined_plot.png", width = 6*300, height = 4*300, res = 300)  # the width and height are in pixels; the res is in dpi
+#  combined_plot()
+#  dev.off()
 }
 
 

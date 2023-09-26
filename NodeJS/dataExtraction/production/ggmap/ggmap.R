@@ -15,6 +15,7 @@ library(ggmap)
 library(ggplot2)
 library(data.table)
 library(grid)
+library(dplyr)
 source('ggmapFrame.R')
 
 adjust_to_square <- function(lon1, lat1, lon2, lat2) {
@@ -56,4 +57,6 @@ time_seq = seq(range(intData$timestamps)[1], range(intData$timestamps)[2])
 
 getFrame(time_seq[38552])
 
+
+api = "AIzaSyB9Y7KRqCh5Wu7AKtbMA_U5d7HAiUww1Xk"
 
