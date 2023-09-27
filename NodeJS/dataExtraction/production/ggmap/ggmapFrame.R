@@ -1,6 +1,4 @@
 getFrame = function(timestamp) {
-  grid.newpage()
-  
   posix_time <- as.POSIXct(timestamp, origin="1970-01-01", tz="UTC")
   
   # Extract the hour and minute
@@ -78,7 +76,9 @@ getFrame = function(timestamp) {
   frame_visual
   
   # Saving the plot
-  filename <- paste0("frames/", timestamp, ".png")  # Creating the filename by concatenating the timestamp with ".png"
+  filename <- paste0("frames/m", timestamp, ".png")  # Creating the filename by concatenating the timestamp with ".png"
   ggsave(filename, plot = frame_visual, width = 10, height = 8, units = "in")  # Saving the plot
+  
+  return(NULL)
 }
 

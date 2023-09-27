@@ -4,6 +4,9 @@ library(data.table)
 library(grid)
 library(dplyr)
 library(showtext)
+library(parallel)
+library(gggrid)
+library(av)
 
 font_add_google("Oswald", family = "oswald")
 showtext_auto()
@@ -14,14 +17,6 @@ zoom_level_full = 11
 zoom_level_min = 15
 auckland_map = get_stamenmap(bbox, zoom = zoom_level_full, maptype = 'terrain')
 auckland_central = get_stamenmap(bbox2, zoom = zoom_level_min, maptype = 'terrain')
-
-colour_scheme <- c("0" = "#595656", "1" = "blue", "2" = "orange", "3" = "red")
-
-intData = fread("../R_interpolation/interpolated_data.csv")
-intData$status = factor(intData$status)
-
-time_seq = seq(range(intData$timestamps)[1], range(intData$timestamps)[2])
-
 
 
 
