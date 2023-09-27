@@ -13,30 +13,29 @@ getFrame = function(timestamp) {
                                         lon <= bbox2[3], 
                                         lat >= bbox2[2], 
                                         lat <= bbox2[4])
+  
+  timeGrob = textGrob(
+    label = paste0("Time: ", hour, ":", minute), 
+    x = 0.99,     
+    y = 0.59,     
+    just = c("right", "top"),     
+    gp = gpar(fontsize = 100, col = "black", fontfamily = "oswald")
+  )
+  
   auckland_visual = ggmap(auckland_map) + 
     geom_point(data = timed_data, aes(x = lon, y= lat, color = status), size = 1.5, alpha = 0.5) +
     scale_color_manual(values = colour_scheme) +
     
     # Add a square
     annotate("rect", 
-             xmin = 174.71623867157618, 
-             xmax = 174.7994086071811, 
-             ymin = -36.88300601996546, 
-             ymax = -36.83723524397908,
+             xmin = bbox2[1], 
+             xmax = bbox2[3], 
+             ymin = bbox2[2], 
+             ymax = bbox2[4],
              fill = NA,                   # No fill
              colour = "black",            # Outline color
              linetype = "solid",          # Type of line
-             size = 1)   +
-    # Add timestamp text
-    annotate("text",
-             x = 174.51351991992968,     # X-coordinate of the text
-             y = -36.498361075414714,     # Y-coordinate of the text
-             label = paste0("Time: ", hour, ":", minute),          # The timestamp you want to display
-             vjust = 1.2,                 # Vertical adjustment to position the text
-             hjust = 0,                  # Horizontal adjustment to position the text
-             size = 20,                   # Text size
-             color = "black",
-             family = "oswald") + 
+             size = 1)  + 
     # Remove x and y axes
     theme(axis.text.x = element_blank(),
           axis.text.y = element_blank(),
@@ -52,7 +51,7 @@ getFrame = function(timestamp) {
                                l = 0)) # Left margin
   
   zoomed_visual = ggmap(auckland_central) + 
-    geom_point(data = zoomed_points, aes(x = lon, y= lat, color = status), size = 3, alpha = 0.6) +
+    geom_point(data = zoomed_points, aes(x = lon, y= lat, color = status), size = 2.5, alpha = 0.6) +
     scale_color_manual(values = colour_scheme) +
     theme(axis.text.x = element_blank(),
           axis.text.y = element_blank(),
@@ -62,19 +61,24 @@ getFrame = function(timestamp) {
           axis.ticks.y=element_blank(),
           # Remove the legend
           legend.position = "none",
-          plot.margin = margin(t = 3,  # Top margin
-                               r = 3,  # Right margin
-                               b = 1,  # Bottom margin
-                               l = 1)) # Left margin
+          plot.margin = margin(t = 0,  # Top margin
+                               r = 0,  # Right margin
+                               b = -3,  # Bottom margin
+                               l = -3), # Left margin
+          plot.background = element_rect(color = "black", size = 1, fill = NA))
   
   # In order ot use gggrid, we need to convert our zoomed_visual into a grob
   g2 = ggplotGrob(zoomed_visual)
-  y = rectGrob()
+  outerEdge = rectGrob(gp = gpar(fill = NA, lwd = 1.5))
 
   vp <- viewport(x = 1, y = 1, width = unit(0.498, "npc"), height = unit(0.4, "npc"), just = c("right", "top"))
   
-  auckland_visual + grid_panel(grobTree(g2, vp=vp))
+  frame_visual = auckland_visual + grid_panel(gTree(children = gList(g2, outerEdge), vp=vp))
+  frame_visual = frame_visual + grid_panel(grobTree(timeGrob)) 
+  frame_visual
+  
+  # Saving the plot
+  filename <- paste0("frames/", timestamp, ".png")  # Creating the filename by concatenating the timestamp with ".png"
+  ggsave(filename, plot = frame_visual, width = 10, height = 8, units = "in")  # Saving the plot
 }
-
-
 
