@@ -34,8 +34,9 @@ getFrame = function(timestamp) {
              label = paste0("Time: ", hour, ":", minute),          # The timestamp you want to display
              vjust = 1.2,                 # Vertical adjustment to position the text
              hjust = 0,                  # Horizontal adjustment to position the text
-             size = 15,                   # Text size
-             color = "black") + 
+             size = 20,                   # Text size
+             color = "black",
+             family = "oswald") + 
     # Remove x and y axes
     theme(axis.text.x = element_blank(),
           axis.text.y = element_blank(),
@@ -61,26 +62,18 @@ getFrame = function(timestamp) {
           axis.ticks.y=element_blank(),
           # Remove the legend
           legend.position = "none",
-          plot.margin = margin(t = 0,  # Top margin
-                               r = 0,  # Right margin
-                               b = 0,  # Bottom margin
-                               l = 0)) # Left margin
-  g1 = ggplotGrob(auckland_visual)
+          plot.margin = margin(t = 3,  # Top margin
+                               r = 3,  # Right margin
+                               b = 1,  # Bottom margin
+                               l = 1)) # Left margin
+  
+  # In order ot use gggrid, we need to convert our zoomed_visual into a grob
   g2 = ggplotGrob(zoomed_visual)
+  y = rectGrob()
+
+  vp <- viewport(x = 1, y = 1, width = unit(0.498, "npc"), height = unit(0.4, "npc"), just = c("right", "top"))
   
-  # Get the bounding box of the map
-  bb <- attr(auckland_map, "bb")
-  
-  grid.draw(g1)
-  vp <- viewport(x = 1, y = 1, width = unit(0.4, "npc"), height = unit(0.32, "npc"), just = c("right", "top"))
-  pushViewport(vp)
-  grid.draw(g2)
-  upViewport()
-  
-  
-#  png("combined_plot.png", width = 6*300, height = 4*300, res = 300)  # the width and height are in pixels; the res is in dpi
-#  combined_plot()
-#  dev.off()
+  auckland_visual + grid_panel(grobTree(g2, vp=vp))
 }
 
 

@@ -157,3 +157,6 @@ NodeJS/dataExtraction/R_Extraction/complete_data.csv
 *.Rhistory
 .Rapp.history
 
+# Font File
+NodeJS/dataExtraction/Martian_Mono
+
