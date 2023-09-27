@@ -5,7 +5,7 @@ createMaps = function(fps, seconds, filepath = "frames/", frametype = "Late") {
   }
   
   # Clearing the images folder
-  files_to_remove <- list.files(path = filepath, pattern = "m*.png", full.names = TRUE)
+  files_to_remove <- list.files(path = filepath, pattern = "\\.(png|mp4)$", full.names = TRUE)
   if (length(files_to_remove) > 0) {
     file.remove(files_to_remove)
   }

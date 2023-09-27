@@ -31,7 +31,7 @@ getFrameLate = function(timestamp, filepath = "frames/") {
                aes(x = lon, y = lat, color = status, alpha = as.factor(status)), 
                size = 1.5) +
     # More relevant points get less transparancy (e.g. Late buses less transparent)
-    scale_alpha_manual(values = c('0' = 0.5, '1' = 0.7, '2' = 0.8, '3' = 9)) +
+    scale_alpha_manual(values = c('0' = 0.5, '1' = 0.7, '2' = 0.8, '3' = 1)) +
     scale_color_manual(values = colour_scheme) +
     
     # Add a square for zoomed in area
@@ -63,7 +63,7 @@ getFrameLate = function(timestamp, filepath = "frames/") {
     geom_point(data = zoomed_points, 
                aes(x = lon, y = lat, color = status, alpha = as.factor(status)), 
                size = 2.5) +
-    scale_alpha_manual(values = c('0' = 0.5, '1' = 0.7, '2' = 0.8, '3' = 9)) +
+    scale_alpha_manual(values = c('0' = 0.5, '1' = 0.7, '2' = 0.8, '3' = 1)) +
     scale_color_manual(values = colour_scheme) +
     theme(axis.text.x = element_blank(),
           axis.text.y = element_blank(),
