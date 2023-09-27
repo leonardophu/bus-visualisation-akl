@@ -142,6 +142,8 @@ NodeJS/dataExtraction/**/*.csv
 NodeJS/dataExtraction/**/*.png
 NodeJS/dataExtraction/**/*.pdf
 NodeJS/dataExtraction/**/*.txt
+NodeJS/dataExtraction/Animations/
+NodeJS/dataExtraction/production/ggmap/LatenessFrames/
 *.DS_Store
 
 NodeJS/dataExtraction/R_interpolation/interpolated_data.csv
