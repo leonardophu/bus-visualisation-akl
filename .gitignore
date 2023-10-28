@@ -160,6 +160,8 @@ dataCleaning/**/*.png
 dataCleaning/**/API_KEY.R
 dataCleaning/**/*.RData
 
+NodeJS/dataExtraction
+
 # Session Data files
 *.RData
 *.RDataTmp
