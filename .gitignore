@@ -151,6 +151,10 @@ NodeJS/dataExtraction/old_extraction/complete_data.csv
 NodeJS/TESTINGdatabase/businfo/stop_times.txt
 NodeJS/dataExtraction/R_Extraction/complete_data.csv
 
+# In datacleaning, ignore csv and mp4
+dataCleaning/**/*.csv
+dataCleaning/**/*.mp4
+
 # Session Data files
 *.RData
 *.RDataTmp
