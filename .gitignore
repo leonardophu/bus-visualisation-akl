@@ -161,6 +161,7 @@ dataCleaning/**/API_KEY.R
 dataCleaning/**/*.RData
 
 NodeJS/dataExtraction/
+OLD_frontend/
 
 # Session Data files
 *.RData
