@@ -1,0 +1,15 @@
+library(DBI)
+library(RODBC)
+library(odbc)
+library(sf)
+library(dplyr)
+library(parallel)
+library(geosphere)
+
+date_str = '2020_03_21'
+date_obj = gsub("_", "-", date_str)
+shape_paths = paste0("shapefiles/", date_str)
+data_paths = paste0("data/", date_str)
+busInfoPath = paste0('bus_info/', date_str, "/")
+complete_data = read.csv(paste0(date_str, "-complete_data.csv"))
+interpolate_path = paste0("interpolation/", date_str)
