@@ -1,5 +1,5 @@
 let sortedNames 
-// These name sare used to store the state of the bus. Previous Value is the previous clicked bus value. Current is the one the user inputed 
+// These names are used to store the state of the bus. Previous Value is the previous clicked bus value. Current is the one the user inputed 
 let previousValue = ""
 let currentValue = ""
 

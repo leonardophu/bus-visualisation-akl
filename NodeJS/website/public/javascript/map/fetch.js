@@ -7,7 +7,8 @@ async function getBusInterpolatedData(busNumber) {
         busData = await fetch(`/busdata`);
     }
     const data = await busData.json();
-        
+
+    // Stores the bus status, interpolated points and start time 
     const busStatusArray = data.map(item => item.bus_status);
     const intPointsArray = data.map(item => item.int_points);
     const startTimeArray = data.map(item => item.start_time);
@@ -20,8 +21,10 @@ async function getBusInterpolatedData(busNumber) {
 }
 
 async function fetchBusData(busNumber) {
+    // If a bus number exists
     if (busNumber) {
         try {
+            // Get the route data
             const response = await fetch(`/routedata?busNumber=${busNumber}`);
             const data = await response.json();
             return(data);

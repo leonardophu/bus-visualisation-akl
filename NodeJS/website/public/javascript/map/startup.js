@@ -1,3 +1,4 @@
+// Global variables needed for visual display
 let num_destinations;
 let minTimestamp;
 let points_index;
@@ -6,6 +7,8 @@ let busStatus, intPoints, startTime;
 let wholemap = true;
 let roads;
 let busStops;
+let busNumber; 
+
 
 const origin = [];
 points_index = [];
@@ -19,7 +22,7 @@ map.on('load', async () => {
 
   // Get the busNumber from the URL parameters
   const urlParams = new URLSearchParams(window.location.search);
-  const busNumber = urlParams.get('busNumber');
+  busNumber = urlParams.get('busNumber'); // Assign the value to the global variable
 
   const requiredData = await fetchBusData(busNumber);
   // If there are no bus numbers, this suggests we are seeing the whole map! 
@@ -99,8 +102,7 @@ map.on('load', async () => {
       return;
     };
 
-    //Update points
-    // Need to fix this code 
+    // Update points
     for(const index of points_index) {
       // Setting datapoint 
       const currentPosition = intPoints[index].shift();
@@ -121,15 +123,15 @@ map.on('load', async () => {
     counter = counter + 1;
     updateCounterValue(counter);
 
-    // Also need to fix interpolation for duplicate points. The code below may be an issue. better to use counter < steps instead of relying on the points_index.length!!! 
+    // If points are avaliable, we will go to the next frame 
     if (!(points_index.length === 0 && points_waiting_index.length === 0)) {
       requestAnimationFrame(animate);
     };
   };
 
-  // This is going wrong, it's running this anyways what the heck 
+  // Replay button, waits to see if anyone clicks on the replay button
+
   document.getElementById('replay').addEventListener('click', () => {
-    console.log("replay action");
     if (running) {
         void 0;
     } else {
@@ -137,11 +139,13 @@ map.on('load', async () => {
             points_obj[i].features[0].geometry.coordinates = origin[i];
         }
 
+        // Reset all the points
         points_waiting_index = JSON.parse(JSON.stringify(originalPointsWaitingIndex));
         intPoints = JSON.parse(JSON.stringify(originalInterpolationPoints));
         currentBusStatus= JSON.parse(JSON.stringify(originalBusStatus));
         busStatus= JSON.parse(JSON.stringify(originalBusStatusInterpolation));
         
+        // Reset the cancellation tab
         document.getElementById('directions').innerHTML = "";
         
         // Want to add the origin points agin
@@ -153,8 +157,6 @@ map.on('load', async () => {
     };
 
 });
-
-
   animate();
 });
 
