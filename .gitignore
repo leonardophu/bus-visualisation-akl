@@ -154,6 +154,11 @@ NodeJS/dataExtraction/R_Extraction/complete_data.csv
 # In datacleaning, ignore csv and mp4
 dataCleaning/**/*.csv
 dataCleaning/**/*.mp4
+dataCleaning/**/*.pb
+dataCleaning/**/*.txt
+dataCleaning/**/*.png
+dataCleaning/**/API_KEY.R
+dataCleaning/**/*.RData
 
 # Session Data files
 *.RData
