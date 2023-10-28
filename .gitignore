@@ -159,6 +159,7 @@ dataCleaning/**/*.txt
 dataCleaning/**/*.png
 dataCleaning/**/API_KEY.R
 dataCleaning/**/*.RData
+dataCleaning/**/*.proto
 
 NodeJS/dataExtraction/
 OLD_frontend/
