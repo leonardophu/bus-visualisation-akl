@@ -7,3 +7,5 @@ To run the back-end please run
 ```bash
 npm run devStart
 ```
+# Public
+Contains all the front-end code. Please note: in order to run this program, you will also need an API key from Mapbox
