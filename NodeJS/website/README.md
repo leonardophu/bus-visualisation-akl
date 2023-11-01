@@ -9,5 +9,11 @@ npm run devStart
 ```
 # Public
 Contains all the front-end code.
-Please note: 
-- W
+Please note you will need to get an API key from Mapbox.
+
+Create a file called **accesstoken.js** in NodeJS/website/javascript/map/accesstoken.js
+
+The code will be 
+```javascript
+mapboxgl.accessToken = 'your API key';
+```
