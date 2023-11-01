@@ -151,6 +151,11 @@ NodeJS/dataExtraction/old_extraction/complete_data.csv
 NodeJS/TESTINGdatabase/businfo/stop_times.txt
 NodeJS/dataExtraction/R_Extraction/complete_data.csv
 
+
+# accesstoken
+NodeJS/website/public/javascript/map/accesstoken.js
+
+
 # In datacleaning, ignore csv and mp4
 dataCleaning/**/*.csv
 dataCleaning/**/*.mp4
