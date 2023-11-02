@@ -6,11 +6,19 @@ The files contained here provide all the necessary code (given a full day's wort
 
 # dataCleaning
 
-The folder is designed to process the raw protobuf bus files, combining and cleaning them. The result will be CSV files containing the raw data for each **trip_id**
+The folder is designed to process the raw protobuf bus files, combining and cleaning them. The result is a whole CSV file that combines all the collected data.
 
 **Assumptions:**  
 - You are aware of the UTC time difference (In New Zealand, it would be UTC +12 or UTC +13, depending on daylight saving time).
 - You possess the proto file for gtfs-realtime.
+- You have the Static GTFS file for the specific date in question.
+
+# dataInterpolation
+
+The folder is designed to process the raw data for each **trip_id**. The result will be CSV files containing the raw data for each **trip_id**, CSV files containing the raw shape data for each **shape_id**, CSV files containing the interpolated dataset for each **trip_id**
+
+**Assumptions:**  
+- The raw complete cleaned CSV (obtained by **dataCleaning**)
 - You have the Static GTFS file for the specific date in question.
 
 # dataAnimation
