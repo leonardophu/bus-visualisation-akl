@@ -1,4 +1,6 @@
+# Given frames per second and seconds, get timestamps for animation
 step_generator = function(fps = 1, seconds = 60) {
+  # Get the total range of timestamps
   time_range = range(intData$timestamps)
   
   total_frames = fps * seconds 
