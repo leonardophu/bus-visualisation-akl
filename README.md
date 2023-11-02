@@ -1,3 +1,10 @@
 # bus-visualisation-akl
-Data Science Project which tries different ways to visualise Auckland's Bus Network. One way was creating a website to visualise real-time animation. The second way was creating a movie which shows bus animation in Auckland. Data was sourced from Auckland Transport. 
+This data science project explores various methods to visualise the bus network of Auckland. One approach involved developing a website to showcase real-time bus movement animations. Another method produced a video that depicts the flow of buses throughout Auckland. The data for this project was obtained from Auckland Transport.
 
+Below are examples of frames generated in R that were used for the animations:
+
+# Stamen Maps
+<img src="https://github.com/leonardophu/bus-visualisation-akl/assets/129243708/f17d9840-b6a9-4149-a3b5-a72882929098" height="500" alt="ggmap_lateFrame"/>
+
+# Google Maps
+<img src="https://github.com/leonardophu/bus-visualisation-akl/assets/129243708/00c4b463-90ff-4919-869a-211c8e84e47f" height="500" alt="August_10"/>
