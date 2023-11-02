@@ -32,4 +32,4 @@ This folder contains all the code required to convert our interpolated dataset i
 
 
 # Running
-If you've got all the needed files ready and have set up the initial files the way you like, you can just run the runPB.pb file. This will automatically do the dataCleaning, dataInterpolation, and dataAnimation steps for you all at once.
+If you've got all the needed files ready and have set up the initial files the way you like, you can just run the runPB.pb file. This will automatically do the **dataCleaning**, **dataInterpolation**, and **dataAnimation** steps for you all at once.
