@@ -6,13 +6,12 @@ The files contained here provide all the necessary code (given a full day's wort
 
 # dataCleaning
 
-The folder will take the raw protobuf bus files, and combine them all together and clean them. 
+The folder is designed to process the raw protobuf bus files, combining and cleaning them. The result will be CSV files containing the raw data for each **trip_id**
 
 **Assumptions:**  
-- You know the UTC difference in time (In New Zealand it would be either UTC + 12 or UTC + 13 depending on daylight saving)
-- You have your downloaded maps as RData
-- You have the proto file for gtfs-raetime
-- You have the Static GTFS file for the specific Real-time GTFS file
+- You are aware of the UTC time difference (In New Zealand, it would be UTC +12 or UTC +13, depending on daylight saving time).
+- You possess the proto file for gtfs-realtime.
+- You have the Static GTFS file for the specific date in question.
 
 # dataAnimation
 
