@@ -1,9 +1,11 @@
+# Function that generates a frame. Given a timestamp and the location on where we want to store the frame.
+
 getFrameMissing = function(timestamp, filepath = "frames/") {
-  posix_time <- as.POSIXct(timestamp, origin="1970-01-01", tz="UTC")
+  posix_time = as.POSIXct(timestamp, origin="1970-01-01", tz="UTC")
   
   # Extract the hour and minute
-  hour <- format(posix_time, format="%H")
-  minute <- format(posix_time, format="%M")
+  hour = format(posix_time, format="%H")
+  minute = format(posix_time, format="%M")
   
   # Points for current timestamp
   timed_data = subset(intData, timestamps == timestamp)
@@ -87,7 +89,7 @@ getFrameMissing = function(timestamp, filepath = "frames/") {
   outerEdge = rectGrob(gp = gpar(fill = NA, lwd = 1.5))
   
   # Viewport for zoomed visual
-  vp <- viewport(x = 1, y = 1, width = unit(0.38, "npc"), height = unit(0.38, "npc"), just = c("right", "top"))
+  vp = viewport(x = 1, y = 1, width = unit(0.38, "npc"), height = unit(0.38, "npc"), just = c("right", "top"))
   
   # Creating our final visualisation
   frame_visual = auckland_visual + grid_panel(gTree(children = gList(g2, outerEdge), vp=vp))
@@ -95,7 +97,8 @@ getFrameMissing = function(timestamp, filepath = "frames/") {
   frame_visual
   
   # Saving the plot
-  filename <- paste0(filepath, "m",  timestamp, ".png")  # Creating the filename by concatenating the timestamp with ".png"
+  # Creating the filename by concatenating the 'm' and 'timestamp' with ".png"
+  filename = paste0(filepath, "m",  timestamp, ".png")
   ggsave(filename, plot = frame_visual, width = 10, height = 8, units = "in")  # Saving the plot
   
   return(NULL)
