@@ -1,6 +1,4 @@
-# Interpolation of points
-library(sf)
-
+# Even split function, given the number of points and bin size, equally shares number of points into bin
 even_split = function(totalPoints, bin_size) {
   base_value = totalPoints %/% bin_size       # Integer division
   remainder = totalPoints %% bin_size         # Remainder
@@ -16,7 +14,9 @@ even_split = function(totalPoints, bin_size) {
   return(array(bins, dim = length(bins)))
 }
 
+# Function, given a single points lat, lon, will find the closest point in a dataframe called shape_data
 find_closest_point = function(lat, lon, shape_data){
+  # Compute the Haversine distance from single point to all other points
   distances = distHaversine(matrix(c(lon, lat), ncol=2), 
                              shape_data[,c("shape_pt_lon", "shape_pt_lat")])
   return(which.min(distances))
