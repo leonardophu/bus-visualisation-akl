@@ -1,7 +1,7 @@
 files = list.files(data_paths)
 
 # List to store the time taken for each file
-time_taken_list <- list()
+time_taken_list = list()
 
 # In parallisation 
 
