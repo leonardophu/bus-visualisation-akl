@@ -3,6 +3,13 @@ This directory contains all the code that will produce the bus visualisation web
 
 # Server.js
 Contains the code to run my back-end. Assumes we have set up the PostgreSQL. 
+
+The PostgreSQL should contain 4 tables
+- Points
+- Stops
+- Stop Trips
+- Route
+
 To run the back-end please run
 ```bash
 npm run devStart
