@@ -1,5 +1,3 @@
-busInfoPath = paste0('bus_info/', date, "/")
-
 #Reading in static files 
 stops = read.table(paste0(busInfoPath,"stops.txt"), header = TRUE, sep = ",", quote = "")
 
