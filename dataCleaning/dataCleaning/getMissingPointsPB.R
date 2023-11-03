@@ -69,17 +69,21 @@ missingPoints = missingPoints %>%
 # Paste the required date
 missingPoints$timestamps = missing_timestamp_conversion(date_obj, missingPoints$departure_time)
 
+# Extract columns contained in the static files 
 missingPoints <- missingPoints %>% 
   left_join(stops %>% select(stop_id, stop_lat, stop_lon), by = "stop_id") %>%
   left_join(trip_route, by = "trip_id") %>% 
   select(trip_id, shape_id, timestamps, stop_lat, stop_lon, route_id, route_short_name, stop_sequence)
 
+# Since the buses are all missing, we set the status = 0 
 missingPoints$status = 0 
 
+# Combine the missing and valid dataframes into one 
 full_data = rbind(missingPoints, valid_dataframes)
 full_data = full_data[is.na(full_data$timestamps) == FALSE,]
 
 # Doing final checks, make sure we get the data for the required date
 full_data = full_data %>% group_by(trip_id) %>% arrange(trip_id, stop_sequence) 
 
+# Write the CSV
 write.csv(full_data, file = paste0(date,"-complete_data.csv"), row.names = FALSE)
