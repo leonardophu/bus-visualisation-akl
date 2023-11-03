@@ -43,6 +43,7 @@ async function getRoad(required_data) {
     // Store all our road coordinates
     const route_coordinates = []
     
+    // Collect all the shape coordinates (we call it route_cordinates) in our query
     for (const id of shapeIds) {
         const uniqueCoords = await fetch(`/shapedata?shapeID=${id}`);
         const data = await uniqueCoords.json();
