@@ -1,3 +1,4 @@
+// Update the counter value in the time display box
 function updateCounterValue(counter) {
     currentTime = getHoursAndMinutes(counter);
     document.getElementById("timeNowDisplay").textContent = currentTime;
