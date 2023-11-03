@@ -1,9 +1,13 @@
+// Function to get the interpolated points given a bus number
+
 async function getBusInterpolatedData(busNumber) {
     let busData; 
 
+    // Fetch the bus number from the URL
     if (busNumber) {
         busData = await fetch(`/busdata?busNumber=${busNumber}`);
     } else {
+        // If no bus number exists then we want to plot for all the buses 
         busData = await fetch(`/busdata`);
     }
     const data = await busData.json();
