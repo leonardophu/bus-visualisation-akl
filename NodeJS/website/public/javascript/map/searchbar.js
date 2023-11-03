@@ -67,6 +67,8 @@ function displayNames(value) {
     };
 };
 
+
+// If a new bus number is inputted, then we will go into a new website
 function newWebsite(busNumber) {
     window.location.href = `/?busNumber=${busNumber}`
 };
