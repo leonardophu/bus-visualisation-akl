@@ -9,7 +9,6 @@ duplicates_exist <- any(duplicated(stop_times[, c("trip_id", "arrival_time")]))
 
 duplicated_rows <- stop_times[duplicated(stop_times[, c("trip_id", "arrival_time")], fromLast = FALSE) | 
                                 duplicated(stop_times[, c("trip_id", "arrival_time")], fromLast = TRUE), ]
-#print(duplicated_rows)
 
 # Remove duplicate rows
 
@@ -17,7 +16,6 @@ stop_times = stop_times %>%
   group_by(trip_id, arrival_time) %>%
   filter(stop_sequence == min(stop_sequence)) %>%
   ungroup()
-
 
 raw_data <- subset(raw_data, !duplicated(raw_data))
 
@@ -61,18 +59,16 @@ full_bus_data = subset(full_bus_data, is.na(shape_id) == FALSE)
 
 full_bus_data$timestamp_altered = full_bus_data$timestamp + utc_diff*3600
 
-# If we look at thsi code, it the times should be close together
-#full_bus_data$timestamp_altered_date = as.POSIXct(full_bus_data$timestamp_altered, origin = "1970-01-01", tz = "UTC")
-
 full_bus_data$expected_timestamp = paste0(gsub("_", "-", date), " ", full_bus_data$departure_time)
 full_bus_data$expected_timestamp = as.numeric(as.POSIXct(full_bus_data$expected_timestamp, format="%Y-%m-%d %H:%M:%S", tz="UTC"))
 
 full_bus_data$delay = full_bus_data$timestamp_altered - full_bus_data$expected_timestamp
 
-# Playing around with data
+# Assigning the status of the bus
 full_bus_data$status = ifelse(full_bus_data$delay < 300, 1,
                               ifelse(full_bus_data$delay < 600, 2, 3))
 
+# Remove odd outliers, in this case, remove observation that arrives 1 hour early or late
 full_bus_data = subset(full_bus_data, !(delay <= -3600 | delay >= 3600))
 
 # Getting all the data for that specific date
