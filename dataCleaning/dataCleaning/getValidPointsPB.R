@@ -9,8 +9,11 @@ arrival_bus = arrival_bus %>%
 # There are cases when the difference in stop_sequence is 0. If this is the case we have problems
 any(arrival_bus$diff_stop_sequence <= 0)
 
+# Remove stop sequences that are too ahead (lag)
 arrival_bus = problemLess(arrival_bus)
+# Remove stop sequences that are the same (equal)
 arrival_bus = problemEqual(arrival_bus)
+# Remove stop sequences that are too behind (lead)
 arrival_bus = problemLead(arrival_bus)
 
 # To double check
