@@ -1,3 +1,5 @@
+// Load all the bus icons and add them onto the map for them to be used
+
 async function loadBusIcons() {
   const onTimeBusImage = await loadImageAsync('./busimages/OnTimeBus.png');
   map.addImage('OnTimeBus', onTimeBusImage);
@@ -13,6 +15,8 @@ async function loadBusIcons() {
 
   console.log("loaded");
 };
+
+// Function to allow time for the images to be added on  
 
 function loadImageAsync(path) {
     return new Promise((resolve, reject) => {
