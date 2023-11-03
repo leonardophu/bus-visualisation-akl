@@ -9,7 +9,7 @@ let roads;
 let busStops;
 let busNumber; 
 
-
+// Global arrays needed for visual display
 const origin = [];
 points_index = [];
 points_waiting_index = [];
@@ -39,6 +39,7 @@ map.on('load', async () => {
 
   minTimestamp = Math.min(...startTime);
 
+  // Store the origins, bus status, poitns and waiting points index
   function initialise() {
     for (let i = 0; i < num_destinations; i++) {
       origin.push(intPoints[i][0]);
@@ -50,7 +51,7 @@ map.on('load', async () => {
   // Get the desired points
   initialise();
 
-  // Keeps the initial points 
+  // Keeps the initial points. Will need to use these when we press the reset button
   const originalPointsWaitingIndex = JSON.parse(JSON.stringify(points_waiting_index));
   const originalInterpolationPoints = JSON.parse(JSON.stringify(intPoints));
   const originalBusStatus = JSON.parse(JSON.stringify(currentBusStatus));
