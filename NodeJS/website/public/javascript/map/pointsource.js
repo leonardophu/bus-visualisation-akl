@@ -1,3 +1,4 @@
+// Given some lat and lon, we will create a point for the map object
 function points(origin) {
     const point = {
         'type': 'FeatureCollection',
@@ -68,12 +69,13 @@ function getNewSource(i) {
                 //Each point is associated with
                 'data': points_obj[i] });
 
+    // If the bus icon is GhostBus (which means it's cancelled) then we need to add that onto the cancellation text
     busicon = getBusIcons(i);
     if(busicon === "GhostBus") {
         addCancellation(i);
     };
 
-
+    // Add the point onto the map to show
     map.addLayer({
     'id': 'point' + i,
     'source': 'point' + i,
