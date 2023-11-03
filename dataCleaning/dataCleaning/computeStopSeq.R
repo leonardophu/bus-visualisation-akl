@@ -1,13 +1,15 @@
+# Function to find the closest point and its stop_sequence for unique stop_sequences
 compute_stop_sequences_unique = function(trip_data) {
-  # Function to find the closest point and its stop_sequence for unique stop_sequences
-  
+
   stop_times_coordinates = subset(stop_time_coords, trip_id == trip_data$trip_id[1])
   
+  # Given a lat and lon, will find the closest point and the respective depature time 
   find_closest_stop = function(lat, lon) {
     distances = geosphere::distVincentySphere(
       p1 = c(lon, lat),
       p2 = stop_times_coordinates[, c("stop_lon", "stop_lat")]
     )
+    # Get the distance that is the smallest 
     closest_index = which.min(distances)
     closest_stop_sequence = stop_times_coordinates$stop_sequence[closest_index]
     closest_departure_time = stop_times_coordinates$departure_time[closest_index]
