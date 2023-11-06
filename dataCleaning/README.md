@@ -28,6 +28,7 @@ This folder contains all the code required to convert our interpolated dataset i
 **Assumptions:**  
 - The complete interpolated dataset for a day's worth of data is available (obtained by **dataInterpolation**)
 - Your downloaded maps are saved as RData files
+  - For this project, the code to generate the maps can be seen in **generatingMaps.R** in the **dataAnimation** folder
 
 
 
