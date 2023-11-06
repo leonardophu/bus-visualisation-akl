@@ -10,7 +10,7 @@ The folder is designed to process the raw protobuf bus files, combining and clea
 
 **Assumptions:**  
 - You are aware of the UTC time difference (In New Zealand, it would be UTC +12 or UTC +13, depending on daylight saving time).
-- You possess the proto file for gtfs-realtime.
+- You have the proto file for gtfs-realtime. (In our case, we got our proto file from [https://developers.google.com/transit/gtfs-realtime/gtfs-realtime-proto](https://developers.google.com/transit/gtfs-realtime/gtfs-realtime-proto))
 - You have the Static GTFS file for the specific date in question.
 
 # dataInterpolation
