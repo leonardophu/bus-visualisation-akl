@@ -4,7 +4,7 @@ Below is a brief rundown of what the R script contains
 
 ## Initalisation
 
-These files contains files that you will need to modify/run before being able to produce the animation
+These files contains files that you will need to modify/run before being able to interpolate the raw data
 
 - initialisationInterpolation.R
 
