@@ -17,7 +17,7 @@ insert_database = function(trip_data) {
                   password = "postgres",
                   host = "localhost")
   
-  df_transformed <- trip_data %>%
+  df_transformed = trip_data %>%
     summarise(
       int_points = paste0('{', paste(sprintf('{%f,%f}', lon, lat), collapse=','), '}'),
       bus_status = sprintf("{%s}", paste(status, collapse=",")),
