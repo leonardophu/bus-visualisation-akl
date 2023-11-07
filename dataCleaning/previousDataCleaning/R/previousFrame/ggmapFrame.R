@@ -1,9 +1,9 @@
 getFrame = function(timestamp) {
-  posix_time <- as.POSIXct(timestamp, origin="1970-01-01", tz="UTC")
+  posix_time = as.POSIXct(timestamp, origin="1970-01-01", tz="UTC")
   
   # Extract the hour and minute
-  hour <- format(posix_time, format="%H")
-  minute <- format(posix_time, format="%M")
+  hour = format(posix_time, format="%H")
+  minute = format(posix_time, format="%M")
   
   timed_data = subset(intData, timestamps == timestamp)
   
@@ -70,14 +70,14 @@ getFrame = function(timestamp) {
   g2 = ggplotGrob(zoomed_visual)
   outerEdge = rectGrob(gp = gpar(fill = NA, lwd = 1.5))
 
-  vp <- viewport(x = 1, y = 1, width = unit(0.498, "npc"), height = unit(0.4, "npc"), just = c("right", "top"))
+  vp = viewport(x = 1, y = 1, width = unit(0.498, "npc"), height = unit(0.4, "npc"), just = c("right", "top"))
   
   frame_visual = auckland_visual + grid_panel(gTree(children = gList(g2, outerEdge), vp=vp))
   frame_visual = frame_visual + grid_panel(grobTree(timeGrob)) 
   frame_visual
   
   # Saving the plot
-  filename <- paste0("frames/m", timestamp, ".png")  # Creating the filename by concatenating the timestamp with ".png"
+  filename = paste0("frames/m", timestamp, ".png")  # Creating the filename by concatenating the timestamp with ".png"
   ggsave(filename, plot = frame_visual, width = 10, height = 8, units = "in")  # Saving the plot
   
   return(NULL)
