@@ -10,7 +10,7 @@ The PostgreSQL should contain 4 tables
 - Stop Trips
 - Route
 
-To run the back-end please run
+To run the back-end please run the following code on the bash
 ```bash
 npm run devStart
 ```
